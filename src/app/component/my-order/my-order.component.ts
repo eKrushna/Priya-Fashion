@@ -57,7 +57,7 @@ export class MyOrderComponent  implements OnInit{
     sizeChartModal: boolean = false;
     menuItems: any;
     loading: boolean = true;  // Set loading to true initially
-  
+
     constructor(
       private loginService: LoginService,
       private http: HttpClient,
@@ -77,22 +77,22 @@ export class MyOrderComponent  implements OnInit{
         this.menuItems = response;
         console.log('menuitems', this.menuItems);
       });
-  
+
       // Filter the delieverdData to include only delivered products
       this.delieverdData = this.delieverdData.filter((order) =>
         order.S_DTL.some((product: Product) => product.Status1 === 'Delivered')
       );
-  
+
       this.fetchData();
       this.deleteOrder(this.orderData);
-  
+
       this.loginService.response$.subscribe((data:any) => {
         this.responseData = data;
         this.User_Name = this.responseData[0].User_Name;
         // Do something with the response
         console.log('this data from my acc', this.responseData);
       });
-  
+
       const customerDataStr = sessionStorage.getItem('customerData');
       console.log('this is cd', customerDataStr);
       if (customerDataStr) {
@@ -114,42 +114,49 @@ export class MyOrderComponent  implements OnInit{
       this.cartItems = this.SharedService.cartItems;
       this.quantity = this.SharedService.getQuantity(this.quantity);
       console.log('cart:--', this.cartItems);
-  
+
       this.fetchOrederData();
       this.extractProductNames();
     }
-  
-    TrackDisplay: boolean = false;
-  
-    TrackPopup(order: any) {
-      // Push order data to showPopupdata array
-      console.log("hello");
-      this.showPopupdata.push(order);
-      console.log("track order",this.showPopupdata);
-  
-      // Set TrackDisplay to true
-      this.TrackDisplay = true;
-  
-      
-      this.DeliveryVendor = order?.Delivery_Vendor || 'N/A';
-      this.deliveryDocumentsNo = order?.Delivery_Documents_No || 'N/A';
-      this.DeliveryDispatchDate = order?.Delivery_Dispatch_Date || 'N/A';
-      this.AboutToReachTime = order?.About_To_Reach_Time || 'N/A';
-      this.OtherInformation = order?.Other_Information || 'N/A';
-  
-      this.showOrdersForm = true;
-      this.sizeChartModal = true;
-    }
-  
+
+  TrackDisplay: boolean = false;
+
+  //navigate to return page
+  navigateToReturnPage(product: any): void {
+    this.router.navigate(['/return'], {
+        queryParams: { productId: product?.Product_Code_Id }
+      });
+  }
+
+    // TrackPopup(order: any) {
+    //   // Push order data to showPopupdata array
+    //   console.log("hello");
+    //   this.showPopupdata.push(order);
+    //   console.log("track order",this.showPopupdata);
+
+    //   // Set TrackDisplay to true
+    //   this.TrackDisplay = true;
+
+
+    //   this.DeliveryVendor = order?.Delivery_Vendor || 'N/A';
+    //   this.deliveryDocumentsNo = order?.Delivery_Documents_No || 'N/A';
+    //   this.DeliveryDispatchDate = order?.Delivery_Dispatch_Date || 'N/A';
+    //   this.AboutToReachTime = order?.About_To_Reach_Time || 'N/A';
+    //   this.OtherInformation = order?.Other_Information || 'N/A';
+
+    //   this.showOrdersForm = true;
+    //   this.sizeChartModal = true;
+    // }
+
     showMore = false;
-  
+
     formatProductName(productName: string): string {
       // Use a regular expression to add spaces between words
       return productName.replace(/([a-z])([A-Z])/g, '$1 $2');
     }
-  
-     
-  
+
+
+
     deleteOrder(order: any): void {
       const deleteData = [
         {
@@ -157,90 +164,90 @@ export class MyOrderComponent  implements OnInit{
           S_MTR_Id: order.S_MTR_Id,
           appKeyCodeKey: '3939',
           firmCodeKey: '3939',
-           
+
         },
       ];
-  
+
       const requestUrl =
         'https://ppriyafashion.com/business_guru_admin/S_MTR_Operations.php';
-  
+
       this.http.post(requestUrl, deleteData).subscribe(
         (response) => {
-           
+
           console.log('Order deleted successfully', response);
-           
+
           this.fetchOrederData();
         }
-         
+
       );
-  
-      
+
+
       order.S_DTL = [];
     }
-  
+
     showDeleiverdForm: boolean = false;
-  
+
     showProfileForm: boolean = false;
     showOrdersForm: boolean = true;
-  
+
     showProfile(): void {
       this.showProfileForm = true;
       this.showOrdersForm = false;
       this.showDeleiverdForm = false;
     }
-  
+
     showOrders(): void {
       this.showProfileForm = false;
       this.showOrdersForm = true;
       this.showDeleiverdForm = false;
     }
-  
+
     showDeleiverdProduct(): void {
       this.showOrdersForm = false;
       this.showProfileForm = false;
       this.showDeleiverdForm = true;
     }
-  
+
     fetchedDataH: any;
     fetchData() {
       const customerDataStr = sessionStorage.getItem('customerData');
       if (customerDataStr) {
         const customerData = JSON.parse(customerDataStr);
-  
+
         this.User_Id = customerData[0].User_Id;
       }
-       
+
       const postData = [
         {
           operation: 'Display_Operation',
-          userId: this.User_Id,  
+          userId: this.User_Id,
         },
       ];
       console.log('fetched UID', postData);
-   
+
       const requestUrl =
         'https://ppriyafashion.com/business_guru_admin/WISH_LIST.php';
       const headers = new HttpHeaders().set('Content-Type', 'application/json');
       this.http.post<any[]>(requestUrl, postData, { headers }).subscribe(
         (response) => {
-          
+
           this.fetchedDataH = response;
           console.log('Fetched Data:', this.fetchedDataH);
         },
         (error) => {
-           
+
           console.error('Error fetching data:', error);
         }
       );
     }
-  
+
     viewData() {
       const customerDataStr = sessionStorage.getItem('customerData');
-  
+
       if (customerDataStr) {
         const customerData = JSON.parse(customerDataStr);
         console.log(customerData[0].User_Id);
-         
+
         this.User_Id = customerData[0].User_Id;
         this.F_Name = customerData[0].F_Name;
         this.L_Name = customerData[0].L_Name;
@@ -256,7 +263,7 @@ export class MyOrderComponent  implements OnInit{
         this.Status1 = customerData[0].Status1;
       }
     }
-  
+
     onSave() {
       if (this.areAllFieldsFilled()) {
         const updatedData = [
@@ -285,37 +292,37 @@ export class MyOrderComponent  implements OnInit{
           (response) => {
             console.log('updatedData');
             sessionStorage.setItem('customerData', JSON.stringify(updatedData));
-   
+
             alert(response);
           },
           (error) => {
-            
+
             console.error('Error updating data', error);
             alert(error);
           }
         );
       } else {
-         
+
         alert('Please fill in all required fields before saving.');
       }
     }
-  
+
     selectedItem: string | null = null;
-  
+
     toggleUnderline(item: string) {
       this.selectedItem = this.selectedItem === item ? null : item;
     }
-  
+
     showdata() {
       const customerDataStr = sessionStorage.getItem('customerData');
-  
+
       if (customerDataStr) {
         const customerData = JSON.parse(customerDataStr);
         this.User_Name = customerData[0].User_Name;
         this.User_Id = customerData[0].User_Id;
         this.Status1 = customerData[0].Status1;
       }
-  
+
       const payload = [
         {
           Operation: 'Display_Operation',
@@ -325,19 +332,19 @@ export class MyOrderComponent  implements OnInit{
           firmCodeKey: '3939',
         },
       ];
-  
+
       console.log('payload', payload);
-  
+
       this.SharedService.showorderStatus(payload).subscribe(
         (res) => {
           this.selectedItem = 'orders';
-  
+
           this.delieverdData = this.delieverdData.filter((order) =>
             order.S_DTL.some((product: Product) => product.Status1 === 'Delivered')
           );
-          
+
           console.log('this is delieverdData', this.delieverdData);
-  
+
           console.log('Deliver ', this.delieverdData);
         },
         (error) => {
@@ -345,20 +352,20 @@ export class MyOrderComponent  implements OnInit{
         }
       );
     }
-  
+
     viewProduct(product: any): void {
       this.router.navigate(['/product', product]);
     }
-  
-    
+
+
     fetchOrederData() {
       const customerDataStr = sessionStorage.getItem('customerData');
-  
+
       if (customerDataStr) {
         const customerData = JSON.parse(customerDataStr);
         this.User_Name = customerData[0].User_Name;
       }
-  
+
       const reqData = [
         {
           Operation: 'Display_Operation',
@@ -367,9 +374,9 @@ export class MyOrderComponent  implements OnInit{
           firmCodeKey: '3939',
         },
       ];
-  
+
       console.log('reqOrederData', reqData);
-   
+
       this.SharedService.getOrder(reqData).subscribe(
         (res) => {
           console.log('API Response:', res); // Debug API response
@@ -387,15 +394,15 @@ export class MyOrderComponent  implements OnInit{
           console.error('API Error:', error);
         }
       );
-      
-      
+
+
     }
-  
-   
-  
-  
+
+
+
+
     productNames: string[] = [];
-  
+
     private extractProductNames(): void {
       console.log('this.is checking orderdata', this.orderData);
       for (const order of this.orderData) {
@@ -405,7 +412,7 @@ export class MyOrderComponent  implements OnInit{
         }
       }
     }
-  
+
     // Inside your component class
     areAllFieldsFilled(): boolean {
       // Check if all required fields have values

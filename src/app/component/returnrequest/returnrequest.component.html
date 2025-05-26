@@ -1,0 +1,85 @@
+<div class="container py-5" style="background:#fff6ea; min-height:100vh;">
+  <div class="row justify-content-center">
+    <!-- Timeline and product -->
+    <div class="col-lg-7 col-md-12 mb-4 mb-lg-0">
+      <div class="d-flex align-items-center mb-4 flex-column flex-sm-row">
+        <img
+          [src]="productImage ? 'https://ppriyafashion.com/business_guru_admin/Product_Image/' + productImage : 'https://via.placeholder.com/80'"
+          alt="Product"
+          style="width:80px; height:80px; object-fit:cover; border-radius:6px; margin-bottom:16px; margin-right:24px;">
+        <div>
+          <div style="font-weight:600;">Product ID: {{ productId }}</div>
+          <div style="color:#555;">Order ID: <span style="font-weight:700;">{{ orderId }}</span></div>
+          <div style="color:#555;">Quantity: <span style="font-weight:700;">{{ quantity }}</span></div>
+        </div>
+      </div>
+      <!-- Timeline -->
+      <div class="timeline">
+        <div class="timeline-step active">
+          <div class="timeline-dot"></div>
+          <div>
+            <div class="timeline-date">{{ today | date:'MMM d' }}</div>
+            <div class="timeline-title">Return started</div>
+            <div class="timeline-desc">
+              <a href="#" style="color:#007185;">Get return label and instructions</a>
+            </div>
+          </div>
+        </div>
+        <div class="timeline-step">
+          <div class="timeline-dot"></div>
+          <div>
+            <div class="timeline-title">
+              Drop off the item by <span style="font-weight:600;">{{ dropOffDate | date:'EEE, MMM d' }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="timeline-step">
+          <div class="timeline-dot"></div>
+          <div>
+            <div class="timeline-title">Refund sent once we get the item</div>
+          </div>
+        </div>
+        <div class="timeline-step">
+          <div class="timeline-dot"></div>
+          <div>
+            <div class="timeline-title">Refund on your card</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Refund summary and manage return -->
+    <div class="col-lg-5 col-md-12">
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="mb-3" style="font-weight:600;">Refund summary</h5>
+          <div class="d-flex justify-content-between">
+            <span>Item price</span>
+            <span>₹{{ itemPrice | number:'1.2-2' }}</span>
+          </div>
+          <!-- GST row in refund summary -->
+          <div class="d-flex justify-content-between">
+            <span>GST</span>
+            <span>- ₹{{ gst | number:'1.2-2' }}</span>
+          </div>
+          <hr>
+          <div class="d-flex justify-content-between" style="font-weight:700;">
+            <span>Estimated total refund</span>
+            <span>₹{{ totalRefund | number:'1.2-2' }}</span>
+          </div>
+          <div class="mt-2" style="font-size:0.95rem; color:#555;">
+            ₹{{ totalRefund | number:'1.2-2' }} will be sent to your payment method
+          </div>
+        </div>
+      </div>
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="mb-3" style="font-weight:600;">Manage your return</h5>
+          <button class="btn btn-link p-0 d-block mb-2" style="color:#007185;">Cancel this return</button>
+          <button class="btn btn-link p-0 d-block mb-2" style="color:#007185;">View order details</button>
+          <button class="btn btn-link p-0 d-block" style="color:#007185;">Write a product review</button>
+        </div>
+      </div>
+      <button class="btn btn-outline-dark w-100">Continue shopping</button>
+    </div>
+  </div>
+</div>

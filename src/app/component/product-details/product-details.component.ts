@@ -94,30 +94,30 @@ selectProduct(product: any) {
     // Pass the product details directly to the checkout page
     this.router.navigate(['/checkout'], { state: { product: product } });
   }
-  
-  
-  
-  
+
+
+
+
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       console.log('Raw Route Parameters:', params);
       this.productCodeId = parseInt(params['id'], 10);
       console.log('Parsed Product Code ID:', this.productCodeId);
-  
+
       this.productservice.getProducts().subscribe({
         next: (data) => {
           console.log('Product Data:', data);
           this.productdata = data;
-  
+
           const productDetail = this.productdata.find(
             (p) => p.Product_Code_Id.toString() === this.productCodeId?.toString()
           );
-  
+
           if (productDetail) {
             this.productdetail = productDetail; // Store productDetail if needed elsewhere
-            
+
             const isSaree = productDetail.Menu_Name?.trim().toLowerCase() === 'saree';
-  
+
             if (isSaree) {
               // For Saree, use the product rate directly (no need for size selection)
               this.selectedRate = productDetail.Rate;
@@ -135,7 +135,7 @@ selectProduct(product: any) {
         }
       });
     });
-  
+
     if (this.productCarousel) {
       new bootstrap.Carousel(this.productCarousel.nativeElement, {
         interval: 1000,
@@ -143,18 +143,20 @@ selectProduct(product: any) {
       });
     }
   }
-  
-  
+
+
 
 
   selectedImageIndex: number = 0;
-    
+
+  
+
 
 
   selectImage(productIndex: number, imageIndex: number): void {
     this.currentImageIndex = imageIndex;
     const imageElement = this.largeImages.toArray()[imageIndex];
-  
+
     if (imageElement) {
       // Manually scroll to adjust positioning without unnecessary spacing
       const offsetTop = imageElement.nativeElement.offsetTop;
@@ -162,7 +164,7 @@ selectProduct(product: any) {
         top: offsetTop - 125, // Adjust the value (20px) to align properly
         behavior: 'smooth'
       });
-  
+
       this.updateActiveSmallImage();
     }
   }
@@ -179,36 +181,36 @@ selectProduct(product: any) {
       this.selectedRate = size.Rate;
     }
   }
-  
-  
-  
+
+
+
   @HostListener('window:scroll', ['$event'])
   onScroll(): void {
     let closestIndex = 0;
     let closestDistance = Number.MAX_VALUE;
-  
+
     this.largeImages.forEach((image, index) => {
       const rect = image.nativeElement.getBoundingClientRect();
       const distanceFromTop = Math.abs(rect.top -1); // Adjust offset if needed
-  
+
       if (distanceFromTop < closestDistance) {
         closestDistance = distanceFromTop;
         closestIndex = index;
       }
     });
-  
+
     this.currentImageIndex = closestIndex;
     this.updateActiveSmallImage();
   }
-  
+
   updateActiveSmallImage(): void {
     this.smallImages.forEach((img, index) => {
       img.nativeElement.classList.toggle('active', index === this.currentImageIndex);
     });
   }
- 
-  
-  
+
+
+
 
 
   getProductCodeDetails(productCodeId: number): void {
@@ -226,17 +228,17 @@ selectProduct(product: any) {
 
   displayFullScreenImage(imageUrl: string) {
     const product = this.productdata.find(p => p.Product_Code_Id.toString() === this.productCodeId.toString());
-  
+
     if (product) {
-      this.currentImageIndex = product.Images.findIndex((img: { P_URL: string }) => 
+      this.currentImageIndex = product.Images.findIndex((img: { P_URL: string }) =>
         this.defaultUrl + img.P_URL === imageUrl
       );
-      
+
       this.fullScreenImageUrl = imageUrl;
       this.isFullScreenImageVisible = true;
     }
   }
-  
+
 
   closeFullScreenImage(event: Event) {
     event.stopPropagation();
@@ -244,7 +246,7 @@ selectProduct(product: any) {
     document.body.style.overflow = '';
   }
 
-  
+
   toggleZoom(event: MouseEvent): void {
     this.isZoomed = !this.isZoomed;
     const zoomedImage = event.target as HTMLImageElement;
@@ -282,26 +284,26 @@ selectProduct(product: any) {
 
   // addToCart2(product: Product, quantity: number, menuName: string, size: string, rate: number) {
   //   console.log('Product Menu Name:', menuName); // Debugging
-  
+
   //   // Convert menu name to lowercase and trim spaces to avoid case sensitivity issues
   //   const isSaree = menuName?.trim().toLowerCase() === 'sarees';
-  
+
   //   // If the product is NOT a saree, check for size selection
   //   if (!isSaree && !this.selectedSize) {
   //     window.alert('Please select a size before adding to the cart.');
   //     return; // Stop execution if size is not selected
   //   }
-  
+
   //   // Check if the user is authenticated
   //   if (this.loginservice.isAuthenticated()) {
   //     const loggedInUser = this.loginservice.getCustomer();
   //     if (loggedInUser) {
   //       // Show success message using window alert
   //       window.alert('Product Successfully added to Cart!');
-  
+
   //       // Add product to cart
   //       this.productservice.addToCart(
-  //         isSaree ? { ...product } : { ...product, selectedSize: this.selectedSize }, 
+  //         isSaree ? { ...product } : { ...product, selectedSize: this.selectedSize },
   //         quantity,
   //         isSaree ? "" : this.selectedSize // Skip selectedSize for saree
   //       );
@@ -315,20 +317,20 @@ selectProduct(product: any) {
 
   addToCart2(product: Product, quantity: number, menuName: string, size: string, rate: number) {
     console.log('Product Menu Name:', menuName);
-  
+
     const isSaree = menuName?.trim().toLowerCase() === 'sarees';
-  
+
     // ✅ Only check size for non-sarees
     if (!isSaree && !size) {
       window.alert('Please select a size before adding to the cart.');
       return;
     }
-  
+
     if (this.loginservice.isAuthenticated()) {
       const loggedInUser = this.loginservice.getCustomer();
       if (loggedInUser) {
         window.alert('Product Successfully added to Cart!');
-  
+
         // ✅ Pass the correct size or "N/A" for sarees
         this.productservice.addToCart(
           { ...product, Menu_Name: menuName, Rate: rate },
@@ -343,27 +345,27 @@ selectProduct(product: any) {
       console.log('Id for Login', product?.Product_Code_Id);
     }
   }
-  
-  
-  
+
+
+
 
   buyNow(product: any, quantity: number, menuName: string, size: string, rate: number) {
     if (this.loginservice.isAuthenticated()) {
       const loggedInUser = this.loginservice.getCustomer();
-  
+
       if (loggedInUser) {
         const isSaree = menuName?.trim().toLowerCase() === 'sarees';
-  
+
         if (!isSaree && !size) {
           window.alert('Please select a size before proceeding.');
           return;
         }
-  
+
         const productWithSize = isSaree ? { ...product } : { ...product, selectedSize: size, Rate: rate };
-  
+
         // Step 1: Add product to cart
         this.productservice.addToCart(productWithSize, quantity, isSaree ? '' : size);
-  
+
         // Step 2: Prepare and store in localStorage for direct checkout view
         const checkoutProduct = {
           name: product?.Product_Name,
@@ -373,9 +375,9 @@ selectProduct(product: any) {
           size: isSaree ? '' : size,
           product_id: product?.Product_Code_Id,
         };
-  
+
         localStorage.setItem('directCheckoutItem', JSON.stringify([checkoutProduct]));
-  
+
         // Step 3: Navigate to checkout
         this.router.navigate(['/checkout']);
       }
@@ -384,18 +386,18 @@ selectProduct(product: any) {
       this.router.navigate(['/login']);
     }
   }
-  
+
   isVideo(fileName: string): boolean {
     const videoExtensions = ['mp4', 'webm', 'mov', 'avi', 'mkv'];
     const ext = fileName.split('.').pop()?.toLowerCase() || '';
     return videoExtensions.includes(ext);
   }
-  
+
   getSafeURL(fileName: string): SafeResourceUrl {
     return this.sanitizer.bypassSecurityTrustResourceUrl(this.defaultUrl + fileName);
   }
 
-  
+
 showSizeErrorMessage : boolean = false;
 
 resetErrorMessage() {

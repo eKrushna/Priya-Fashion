@@ -1,0 +1,40 @@
+{
+  "returnReasons": [
+    {
+      "id": 1,
+      "label": "Item damaged or defective"
+    },
+    {
+      "id": 2,
+      "label": "Received the wrong item"
+    },
+    {
+      "id": 3,
+      "label": "Item arrived late"
+    },
+    {
+      "id": 4,
+      "label": "Item no longer needed"
+    },
+    {
+      "id": 5,
+      "label": "Better price available elsewhere"
+    },
+    {
+      "id": 6,
+      "label": "Item did not match description"
+    },
+    {
+      "id": 7,
+      "label": "Wrong size or fit"
+    },
+    {
+      "id": 8,
+      "label": "Unauthorized purchase"
+    },
+    {
+      "id": 9,
+      "label": "Other"
+    }
+  ]
+}

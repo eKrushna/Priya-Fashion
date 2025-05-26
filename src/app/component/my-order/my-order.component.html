@@ -17,27 +17,22 @@
         <ng-container *ngFor="let product of order.S_DTL; let i = index">
           <div class="col-12 col-sm-6 col-md-4">
             <div class="card shadow-sm">
-              <img [src]="'https://ppriyafashion.com/business_guru_admin/Product_Image/' + product.Images[0].P_URL" 
-              alt="Selected Product" 
-              class="cart-image">
-         
+              <img [src]="'https://ppriyafashion.com/business_guru_admin/Product_Image/' + product.Images[0].P_URL"
+                alt="Selected Product" class="cart-image">
+
               <div class="card-body">
                 <h6 class="card-title">
                   {{
-                    showMore
-                      ? product.Product_Name
-                      : (product.Product_Name | slice : 0 : 20)
+                  showMore
+                  ? product.Product_Name
+                  : (product.Product_Name | slice : 0 : 20)
                   }}
                   <!-- <span *ngIf="product.Product_Name.length > 20">...</span> -->
                 </h6>
                 <p class="card-text text-muted">RS. {{ product.P_Rate}}</p>
                 <p class="card-text">QTY - {{ product.Quantity}}</p>
-                <button
-                  class="btn btn-sm btn-light w-100"
-                  data-bs-toggle="modal"
-                  data-bs-target="#exampleModal"
-                  (click)="TrackPopup(order)"
-                >
+                <button class="btn btn-sm btn-light w-100" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                  (click)="navigateToReturnPage(product.Product_ID)">
                   Track
                 </button>
               </div>
@@ -48,9 +43,9 @@
     </div>
   </div>
 </div>
- 
 
-<div
+
+<!-- <div
   class="modal fade"
   id="exampleModal"
   tabindex="-1"
@@ -112,5 +107,4 @@
       </div>
     </div>
   </div>
-</div>
-
+</div> -->

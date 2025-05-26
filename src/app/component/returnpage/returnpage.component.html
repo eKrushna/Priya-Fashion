@@ -1,0 +1,130 @@
+<div class="container py-5" style="background:#fff6ea; min-height:100vh;">
+  <div class="mx-auto" style="max-width:900px; background:#fff; border-radius:8px; padding:40px 32px;">
+    <h1 class="mb-4" style="font-weight:700; font-size:2.5rem;">Request a return</h1>
+    <div *ngIf="selectedProduct">
+      <!-- Animated fold/unfold container -->
+      <div [@foldUnfold]="isFolded ? 'folded' : 'unfolded'">
+        <ng-container *ngIf="!isFolded">
+          <!-- FULL FORM VIEW -->
+          <ng-template [ngTemplateOutlet]="fullForm"></ng-template>
+        </ng-container>
+      </div>
+      <div [@foldUnfold]="isFolded ? 'unfolded' : 'folded'">
+        <ng-container *ngIf="isFolded">
+          <!-- FOLDED VIEW -->
+          <div class="d-flex justify-content-between align-items-center py-3 border-bottom">
+            <span style="font-weight:600;">{{ selectedProduct.Product_Name }}</span>
+            <span style="font-weight:700;">₹{{ selectedProduct.P_Rate * selectedQuantity }}</span>
+          </div>
+          <div class="mt-4 mb-3" style="font-weight:500;">
+            <span class="badge bg-secondary me-2">What's in your mind?</span>
+          </div>
+          <div class="mb-4">
+            <div class="form-check mb-2">
+              <input class="form-check-input" type="radio" name="action" id="return" value="return"
+                [(ngModel)]="selectedAction">
+              <label class="form-check-label" for="return">
+                Return
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="action" id="replace" value="replace"
+                [(ngModel)]="selectedAction">
+              <label class="form-check-label" for="replace">
+                Replace product
+              </label>
+            </div>
+          </div>
+          <div class="text-center mb-2">
+            <button class="btn btn-dark btn-lg px-5" style="font-weight:600;" [disabled]="!isActionValid()"
+              (click)="onProceed()">Proceed</button>
+          </div>
+          <div class="text-center">
+            <button class="btn btn-link mt-2" (click)="onUnfold()" style="text-decoration:underline;">
+              <span aria-hidden="true">&#8593;</span> Edit selection
+            </button>
+          </div>
+        </ng-container>
+      </div>
+      <!-- Full form template -->
+      <ng-template #fullForm>
+        <h4 class="mb-3" style="font-weight:600;">1. Choose items to return</h4>
+        <hr>
+        <div class="d-flex flex-column flex-md-row align-items-start mb-4">
+          <!-- Product summary -->
+          <div class="d-flex align-items-center flex-grow-1 mb-3 mb-md-0" style="min-width:0;">
+            <input type="checkbox" checked class="form-check-input me-3" style="width:24px; height:24px;">
+            <img
+              [src]="selectedProduct.Images?.[0]?.P_URL ? 'https://ppriyafashion.com/business_guru_admin/Product_Image/' + selectedProduct.Images[0].P_URL : 'https://via.placeholder.com/80'"
+              alt="Product" style="width:80px; height:80px; object-fit:cover; border-radius:6px; margin-right:24px;">
+            <div style="min-width:0;">
+              <div style="font-weight:600;">{{ selectedProduct.Product_Name }}</div>
+              <div class="mb-2">
+                <span style="color:#555;">Product code</span>
+                <span style="font-weight:700; margin-left:8px;">{{ selectedProduct.Product_Code_Id }}</span>
+              </div>
+              <div class="mb-2">
+                <span style="color:#555;">Order ID</span>
+                <span style="font-weight:700; margin-left:8px;">{{ selectedOrder?.S_MTR_Id }}</span>
+              </div>
+              <div class="mb-2">
+                <span style="color:#555;">Amount</span>
+                <span style="font-weight:700; margin-left:8px;">
+                  ₹{{ selectedProduct.P_Rate * selectedQuantity }}
+                </span>
+              </div>
+            </div>
+          </div>
+          <!-- Qty and Reason -->
+          <div class="ms-0 ms-md-4 w-100" style="max-width:320px;">
+            <div class="d-flex flex-column flex-md-column gap-2">
+              <div class="mb-2">
+                <label class="form-label mb-0" style="font-size:0.95rem;">Quantity</label>
+                <select class="form-select" style="width:100px; display:inline-block;" [(ngModel)]="selectedQuantity"
+                  name="quantity" required>
+                  <option *ngFor="let q of quantityOptions" [value]="q">{{ q }}</option>
+                </select>
+              </div>
+              <div>
+                <label class="form-label mb-0" style="font-size:0.95rem;">Reason for returning</label>
+                <select class="form-select" style="min-width:200px;" (change)="onReasonChange($event)">
+                  <option *ngFor="let reason of reasons" [value]="reason.id">
+                    {{ reason.label }}
+                  </option>
+                </select>
+                <input *ngIf="(selectedReasonLabel ?? '').toLowerCase().includes('other')" type="text"
+                  class="form-control mt-2" placeholder="Please specify your reason" [(ngModel)]="otherReason"
+                  name="otherReason" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <div class="d-flex justify-content-between align-items-start mb-4 flex-wrap">
+          <div style="max-width:70%;">
+            <strong>Please note:</strong>
+            <span style="font-size:0.97rem;">
+              Items must be returned unused and in their original condition (including all labels and tags intact).
+              Products must not contain personal data or have been manufacturer-registered (mobile phones, tablets,
+              computers).
+              <a href="#" style="text-decoration:underline;">Read our return policy to find out more.</a>
+            </span>
+          </div>
+          <div>
+            <a href="#" style="text-decoration:underline;">Can’t see the item you want to return?</a>
+          </div>
+        </div>
+        <div class="text-center mb-3">
+          <button class="btn btn-dark btn-lg px-5" style="font-weight:600;" [disabled]="!isFormValid()"
+            (click)="onContinue()">Continue</button>
+        </div>
+      </ng-template>
+    </div>
+    <div *ngIf="!selectedProduct">
+      <p>No order found to return.</p>
+    </div>
+  </div>
+  <div class="text-center mt-4">
+    <a href="../my-order/" style="text-decoration:underline; color:#222;">I don’t want to return items</a>
+  </div>
+</div>

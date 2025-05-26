@@ -1,6 +1,6 @@
+import { ReplacerequestComponent } from './component/replacerequest/replacerequest.component';
 import { Routes } from '@angular/router';
 import { CollectionsComponent } from './component/collections/collections.component';
-
 import { ProductDetailsComponent } from './component/product-details/product-details.component';
 import { AddToCartComponent } from './component/add-to-cart/add-to-cart.component';
 import { PolicyComponent } from './component/policy/policy.component';
@@ -14,6 +14,8 @@ import { MyAccountComponent } from './component/my-account/my-account.component'
 import { PrivacyComponent } from './component/privacy/privacy.component';
 import { HomeComponent } from './component/home/home.component';
 import { SearchComponent } from './component/search/search.component';
+import { ReturnpageComponent } from './component/returnpage/returnpage.component';
+import { ReturnrequestComponent } from './component/returnrequest/returnrequest.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -27,7 +29,10 @@ export const routes: Routes = [
     {path:'delivery-address',component:DeliveryAddressComponent},
     {path:'my-profile',component:ProfileComponent},
     {path:'checkout',component:CheckoutComponent},
-    {path:'privacy',component:PrivacyComponent},
-    {path:'search' ,component:SearchComponent},
+    { path: 'return', component: ReturnpageComponent },
+  { path: 'search', component: SearchComponent },
+  { path: 'replacerequest', component: ReplacerequestComponent },
+  { path: 'returnrequest', component: ReturnrequestComponent },
     { path: '**', redirectTo: '' }
 ];
+
