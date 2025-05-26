@@ -1,0 +1,84 @@
+/* General Styles */
+.login-page {
+  margin-top: 80px;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+}
+
+.page-title h1 {
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.login-box {
+  background: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Input Fields */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-control {
+  height: 40px;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Password Input with Toggle */
+.password-wrapper {
+  position: relative;
+}
+
+.password-wrapper i {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 18px;
+}
+
+/* Buttons */
+.login-btn {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+.logout-link {
+  display: block;
+  margin-top: 10px;
+  text-decoration: none;
+  color: #333;
+}
+
+.Create_Forgot {
+  text-decoration: none;
+  color: #007bff;
+}
+
+/* Error Messages */
+.text-danger {
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+/* Mobile Responsive */
+@media (max-width: 767px) {
+  .login-box {
+    padding: 20px;
+  }
+
+  .page-title h1 {
+    font-size: 24px;
+  }
+
+  .login-btn {
+    font-size: 14px;
+  }
+}

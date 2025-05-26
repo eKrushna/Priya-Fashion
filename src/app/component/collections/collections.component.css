@@ -1,0 +1,255 @@
+.title{
+  font-family: Burford Rustic Line Light;
+  letter-spacing: 1.8px; 
+  opacity: 0.6; /* Lower value = lighter text */
+ }
+  .product-header {
+    text-align: center;
+    padding: 20px 0;
+  }
+  .breadcrumb{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Burford Rustic Line Light;
+    letter-spacing: 1.5px; 
+    opacity: 0.7; /* Lower value = lighter text */
+  }
+  h2{
+    margin-top: 25px;
+    font-family: Burford Rustic Line Light;
+    letter-spacing: 1.5px; 
+    opacity: 0.7; /* Lower value = lighter text */
+  }
+
+  .product-controls {
+    display: flex;
+    justify-content: space-between; /* Space between elements */
+    align-items: center; /* Vertical alignment */
+    padding: 10px 0; /* Add spacing */
+    border-top: 1px solid #ddd; /* Optional separator line */
+    border-bottom: 1px solid #ddd; /* Optional separator line */
+    margin-bottom: 30px; /* Space below the section */
+    margin-top: 55px;
+  }
+  
+  .view-icons {
+    display: flex;
+    gap: 5px; /* Space between icons */
+  }
+  
+  .view-icons i {
+    font-size: 24px;
+    color: #999;
+    cursor: pointer;
+    margin: 0 10px;
+    transition: color 0.3s ease;
+  }
+  
+  .view-icons i.active {
+    color: #333; /* Active Icon Color */
+  }
+  
+  .product-count {
+    font-family: Burford Rustic Line Light;
+    letter-spacing: 1.5px;
+    opacity: 0.7;
+  }
+  
+  .dropdown {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    opacity: 0.7;
+    margin-right: 20px;
+  }
+  
+  .dropdown span {
+    font-family: Burford Rustic Line Light;
+    letter-spacing: 1.5px;
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between text and arrow */
+  }
+  
+  .arrow {
+    width: 10px;
+    height: 10px;
+    border-left: 2px solid #333;
+    border-bottom: 2px solid #333;
+    transform: rotate(-45deg);
+    transition: transform 0.3s ease;
+  }
+  
+  .rotate {
+    transform: rotate(135deg);
+  }
+  
+  .dropdown-list {
+    position: absolute;
+    right: 0;
+    background: #f9f9f9;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    width: 150px; /* Smaller width */
+    border-radius: 5px;
+    margin-top: 5px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+  
+  .dropdown-list div {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .dropdown-list div:hover {
+    background: #007bff;
+    color: #fff;
+  }
+ 
+  /* -------images style-------- */
+  .product-card {
+    display: flex; /* Flexbox to center content */
+    align-items: center; /* Vertically center image */
+    justify-content: center; /* Horizontally center image */
+    overflow: hidden; /* Prevent image overflow */
+    border: 1px solid #ddd; /* Optional border */
+    width: 100%; /* Full width */
+    height: 100%;
+    margin-bottom: 10px;
+  }
+  
+  .product-image {
+    width: 100%; /* Image takes full width */
+    height: 100%; /* Image takes full height */
+    object-fit: contain; /* Image covers container without distortion */
+  }
+  
+
+  
+  .grid-2 .product-card {
+    height: 400px; /* Larger size for 2-column grid */
+  }
+  
+  .grid-3 .product-card {
+    height: 300px; /* Medium size for 3-column grid */
+  }
+  
+  .grid-4 .product-card {
+    height: 250px; /* Smaller size for 4-column grid */
+  }
+  
+  @media (max-width: 768px) {
+    .product-card {
+      height: 200px; /* Smaller height for mobile */
+    }
+  }
+  
+
+  .size-buttons {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px; /* Space between buttons */
+    flex-wrap: wrap;
+  }
+  
+  .size-btn {
+    padding: 8px 14px;
+    background-color: white; /* White background */
+    border: 2px solid #ccc; /* Light gray border */
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 10px;
+    font-weight: bold;
+    text-align: center;
+    width: 30px; /* Circular shape */
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #666; /* Light text */
+    transition: all 0.3s ease;
+  }
+  
+  .product-info {
+    font-family: Burford Rustic Line Light;
+    opacity: 0.8; /* Lower value = lighter text */
+  }
+  .product-info h5{
+    font-size: 14px;
+    letter-spacing: 1.5px;
+  }
+
+  .product-info p{
+    font-size: 14px;
+    color: red;
+  }
+ .container-fluid{
+  margin-bottom:20%;
+ }
+.title{
+  font-size: 35px;
+}
+/* Mobile devices (up to 480px) */
+@media (max-width: 480px) {
+  .title {
+    font-size: 24px; /* Decrease title font size */
+  }
+
+  .breadcrumb {
+    font-size: 12px; /* Adjust breadcrumb size */
+  }
+
+  .product-controls {
+    flex-direction: column; /* Stack controls vertically */
+    align-items: center;
+  }
+
+  .view-icons {
+    display: flex;
+    gap: 10px;
+  }
+
+ 
+
+  .product-card {
+    height: 180px; /* Reduce image size */
+  }
+
+  .size-btn {
+    width: 28px;
+    height: 28px;
+    font-size: 8px;
+  }
+}
+
+/* Tablets (481px - 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+  .title {
+    font-size: 32px;
+  }
+
+  .product-controls {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .product-card {
+    height: 220px;
+  }
+}
+
+/* Laptops and larger screens (769px and above) */
+@media (min-width: 769px) {
+  .title {
+    font-size: 40px; /* Default size */
+  }
+
+  .product-card {
+    height: 300px;
+  }
+}
+
+ 

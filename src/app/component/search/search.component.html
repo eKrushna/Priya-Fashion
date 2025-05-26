@@ -1,0 +1,43 @@
+<div class="search-container" style="margin-bottom:10%;">
+    <h3>SEARCH</h3>
+    <div class="search-box">
+      <input type="text" placeholder="Search for..."   [(ngModel)]="searchTerm"
+      (input)="onSearchChange()"
+      #searchInput />
+      <button>
+        <i class="fas fa-search"></i>
+      </button>
+    </div>
+    <div *ngIf="filteredProducts.length > 0 && searchTerm.trim()" class="product-grid">
+        <div *ngFor="let product of filteredProducts let i = index">
+          <div class="product-card text-center">
+            <div class="image-container">
+              <img [src]="getHoveredImageUrl(product, i)" 
+              (mouseover)="hoveredProductIndex = i" 
+              (mouseleave)="hoveredProductIndex = -1" 
+              class="product-image img-fluid" 
+              alt="{{ product.Product_Name }}" 
+              (click)="goToProductDetails(product)">     
+            </div>
+            <div class="product-info">
+              <h5>{{ truncateProductName(product.Product_Name) }}</h5>
+      
+              
+              
+              <p style="color: red;">&#8377;{{ product.Rate }}</p>
+            </div>
+            <div class="size-buttons mt-0">
+              <button
+                *ngFor="let size of product.Sizes"
+                class="size-btn"
+                [ngClass]="{'selected': selectedSize === size.Size_Name}"
+                (click)="selectedSize = size.Size_Name"
+              >
+                {{ size.Size_Name }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+  

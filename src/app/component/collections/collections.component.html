@@ -1,0 +1,58 @@
+<div class="product-header">
+    <div class="breadcrumb">
+      <span class="text-center">Home</span> › <span>{{ category }}</span>
+    </div>
+    <h2 class="text-center title">{{ category | uppercase }}</h2>
+    <div class="product-controls">
+        <div class="view-icons d-none d-lg-block">
+            <i class="fas fa-th-large" (click)="changeGrid(2, $event)"></i> <!-- Two Columns -->
+            <i class="fas fa-th" (click)="changeGrid(3, $event)"></i>       <!-- Three Columns -->
+            <i class="fas fa-bars" (click)="changeGrid(4, $event)"></i>     <!-- List View -->
+          </div>
+          
+      
+        <span class="product-count">{{ products.length }} PRODUCTS</span>
+      
+        <div class="dropdown" (click)="toggleDropdown()" [class.open]="dropdownOpen">
+            <span>SORT BY:</span>
+            <div class="dropdown-list" *ngIf="dropdownOpen">
+              <div (click)="sortProducts('low-to-high')">Price, Low to High</div>
+              <div (click)="sortProducts('high-to-low')">Price, High to Low</div>
+            </div>
+          </div>
+          
+          
+          
+          
+      </div>
+      
+  </div>
+  
+  <div class="container-fluid">
+   <div class="container">
+    <div class="row no-gutters">
+      <div [ngClass]="gridClass" *ngFor="let product of products let i = index" style="margin-bottom: 10%;">
+        <div class="product-card">
+          <img [src]="getHoveredImageUrl(product,i)"  (mouseover)="hoveredProductIndex = i" 
+          (mouseleave)="hoveredProductIndex = -1"  class="product-image img-fluid" alt="{{ product.Product_Name }}" (click)="goToProductDetails(product)">
+        </div>
+        <div class="product-info">
+          {{ truncateProductName(product.Product_Name) }}
+          <p>&#8377;{{ product.Rate }}</p>
+       
+        <div class="size-buttons mt-0">
+          <button
+            *ngFor="let size of product.Sizes"
+            class="size-btn"
+            [ngClass]="{'selected': selectedSize === size.Size_Name}"
+            (click)="selectedSize = size.Size_Name"
+          >
+            {{ size.Size_Name }}
+          </button>
+        </div>
+      </div>
+      </div>
+    </div>
+   </div>
+  </div>
+  

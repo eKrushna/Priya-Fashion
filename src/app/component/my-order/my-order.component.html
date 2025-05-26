@@ -1,0 +1,116 @@
+<app-my-account></app-my-account>
+
+<!-- Show space when API is loading -->
+<div *ngIf="loading" class="loading-space"></div>
+
+<!-- Show space when API is loaded but no orders exist -->
+<div *ngIf="!loading && orderData.length === 0" class="empty-order-container">
+  <p>No orders found. Please go shopping!</p>
+</div>
+
+<!-- Orders Section -->
+<div *ngIf="!loading && orderData.length > 0" class="container">
+  <div class="col-md-8 crd">
+    <h1 class="d-flex justify-content-center align-items-center mt-5">My Order</h1>
+    <div class="row g-4 mt-2 mb-5">
+      <ng-container *ngFor="let order of orderData">
+        <ng-container *ngFor="let product of order.S_DTL; let i = index">
+          <div class="col-12 col-sm-6 col-md-4">
+            <div class="card shadow-sm">
+              <img [src]="'https://ppriyafashion.com/business_guru_admin/Product_Image/' + product.Images[0].P_URL" 
+              alt="Selected Product" 
+              class="cart-image">
+         
+              <div class="card-body">
+                <h6 class="card-title">
+                  {{
+                    showMore
+                      ? product.Product_Name
+                      : (product.Product_Name | slice : 0 : 20)
+                  }}
+                  <!-- <span *ngIf="product.Product_Name.length > 20">...</span> -->
+                </h6>
+                <p class="card-text text-muted">RS. {{ product.P_Rate}}</p>
+                <p class="card-text">QTY - {{ product.Quantity}}</p>
+                <button
+                  class="btn btn-sm btn-light w-100"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                  (click)="TrackPopup(order)"
+                >
+                  Track
+                </button>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </ng-container>
+    </div>
+  </div>
+</div>
+ 
+
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Tracking Status</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="tracking-details">
+          <button
+            *ngIf="!showOrdersForm"
+            type="button"
+            class="close"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+
+          <div class="form-field">
+            <span class="label">Delivery Vendor:</span>
+            <span class="value">{{ DeliveryVendor }}</span>
+          </div>
+
+          <div class="form-field">
+            <span class="label">Delivery Documents No:</span>
+            <span class="value">{{ deliveryDocumentsNo }}</span>
+          </div>
+
+          <div class="form-field">
+            <span class="label">Delivery Dispatch Date:</span>
+            <span class="value">{{ DeliveryDispatchDate }}</span>
+          </div>
+
+          <div class="form-field">
+            <span class="label">About To Reach Time:</span>
+            <span class="value">{{ AboutToReachTime }}</span>
+          </div>
+
+          <div class="form-field">
+            <span class="label">Other Information:</span>
+            <span class="value">{{ OtherInformation }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+

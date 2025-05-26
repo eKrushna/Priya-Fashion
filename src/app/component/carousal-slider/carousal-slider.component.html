@@ -1,0 +1,34 @@
+
+<div id="carouselExample" class="carousel slide carousel-fade mb-1" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div *ngFor="let image of sliderImages; let i = index" class="carousel-item" [class.active]="i === 0">
+      <img 
+      *ngIf="isImage(image.I_Gallery_Name)"
+      [src]="defaultUrl + image.I_Gallery_Name" 
+      class="d-block w-100 img-fluid" 
+      alt="Slider Image">
+    </div>
+  </div>
+</div>
+
+
+
+<div class="logos">
+  <div class="logo_items">
+    <span>Get 5% OFF on Prepaid Orders &nbsp;&nbsp;&nbsp;&nbsp;</span>
+    <span>Get 5% OFF on Prepaid Orders &nbsp;&nbsp;&nbsp;&nbsp;</span>
+    <span>Get 5% OFF on Prepaid Orders &nbsp;&nbsp;&nbsp;&nbsp;</span>
+    <span>Get 5% OFF on Prepaid Orders &nbsp;&nbsp;&nbsp;&nbsp;</span>
+  </div>
+  <div class="logo_items">
+    <span>Get 5% OFF on Prepaid Orders &nbsp;&nbsp;&nbsp;&nbsp;</span>
+    <span>Get 5% OFF on Prepaid Orders &nbsp;&nbsp;&nbsp;&nbsp;</span>
+    <span>Get 5% OFF on Prepaid Orders &nbsp;&nbsp;&nbsp;&nbsp;</span>
+    <span>Get 5% OFF on Prepaid Orders &nbsp;&nbsp;&nbsp;&nbsp;</span>
+  </div>
+</div>
+
+
+
+
+

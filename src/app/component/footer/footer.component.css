@@ -1,0 +1,162 @@
+footer {
+  background: #f8f8f8;
+  padding: 60px 20px;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  color: #9a9a9a;
+  letter-spacing: 0.8px;
+}
+
+.footer-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* Default 5 columns */
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.footer-column h4 {
+  font-size: 15px;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.footer-column p,
+.footer-column ul li {
+  font-size: 13px;
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+.footer-column ul {
+  padding: 0;
+  list-style: none;
+}
+
+.footer-column ul li:hover {
+  color: #444;
+  cursor: pointer;
+}
+
+.footer-column input {
+  padding: 10px;
+  width: 100%;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+}
+
+.footer-column button {
+  background: #444;
+  color: #fff;
+  padding: 12px 30px;
+  border: none;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+
+.footer-column .enquiry {
+  color: red;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.footer-social {
+  text-align: left;
+  margin-top: 30px;
+}
+
+.footer-social i {
+  margin: 0 15px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.customer-service {
+  grid-column: span 5;
+  text-align: left;
+}
+
+/* 🔥 Tablet Devices (768px - 915px) */
+@media (max-width: 915px) {
+  .footer-container {
+    grid-template-columns: repeat(3, 1fr); /* 3 columns */
+    gap: 30px;
+  }
+  .customer-service {
+    grid-column: span 3;
+    text-align: left;
+  }
+}
+
+/* 📱 Mobile Devices (576px - 767px) */
+@media (max-width: 767px) {
+  .footer-container {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns */
+    gap: 20px;
+  }
+  .customer-service {
+    grid-column: span 2;
+    text-align: center;
+  }
+  .footer-social {
+    text-align: center;
+  }
+}
+
+/* 📱 Small Mobile Devices (Up to 576px) */
+@media (max-width: 576px) {
+  .footer-container {
+    grid-template-columns: 1fr; /* Single Column Layout */
+    gap: 20px;
+    text-align: center;
+  }
+  .customer-service {
+    grid-column: span 1;
+    text-align: center;
+  }
+  .footer-social {
+    text-align: center;
+    margin-top: 20px;
+  }
+  .footer-social i {
+    margin: 0 10px;
+    font-size: 18px;
+  }
+}
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: nowrap; /* Prevents wrapping */
+  gap: 40px;
+}
+
+.footer-column {
+  flex: 1; /* Makes all columns evenly spaced */
+  min-width: 180px; /* Ensures columns have a minimum width */
+}
+
+/* Ensures customer service spans the full width */
+.customer-service {
+  flex: 1;
+  text-align: left;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 915px) {
+  .footer-container {
+    flex-wrap: wrap; /* Allows wrapping on smaller screens */
+    justify-content: space-around;
+  }
+  .customer-service {
+    text-align: center;
+  }
+}
+
+@media (max-width: 576px) {
+  .footer-container {
+    flex-direction: column;
+    text-align: center;
+  }
+}

@@ -1,0 +1,123 @@
+<app-my-account></app-my-account>
+<!-- <div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header">
+          <h3>Delivery Address</h3>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="addressForm" (ngSubmit)="saveAddress()">
+            <div class="form-group">
+              <label for="address1">Address Line 1</label>
+              <input type="text" class="form-control" formControlName="address1" id="address1" required>
+              <div *ngIf="addressForm.get('address1')?.invalid && addressForm.get('address1')?.touched" class="text-danger">
+                Address Line 1 is required
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="address2">Address Line 2</label>
+              <input type="text" class="form-control" formControlName="address2" id="address2">
+            </div>
+
+            <div class="form-group">
+              <label for="city">City</label>
+              <input type="text" class="form-control" formControlName="city" id="city" required>
+              <div *ngIf="addressForm.get('city')?.invalid && addressForm.get('city')?.touched" class="text-danger">
+                City is required
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="state">State</label>
+              <input type="text" class="form-control" formControlName="state" id="state" required>
+              <div *ngIf="addressForm.get('state')?.invalid && addressForm.get('state')?.touched" class="text-danger">
+                State is required
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="zip">ZIP Code</label>
+              <input type="text" class="form-control" formControlName="zip" id="zip" required>
+              <div *ngIf="addressForm.get('zip')?.invalid && addressForm.get('zip')?.touched" class="text-danger">
+                ZIP Code is required
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="country">Country</label>
+              <input type="text" class="form-control" formControlName="country" id="country" required>
+              <div *ngIf="addressForm.get('country')?.invalid && addressForm.get('country')?.touched" class="text-danger">
+                Country is required
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary" [disabled]="addressForm.invalid">
+              Save Address
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+
+<div class="container" *ngIf="showProfileForm" >
+  <div class="create-ac-content" style="margin-top: 50px; margin-bottom: 30px;">
+    <form>
+      
+
+      <fieldset>
+        <h6>delivery Address</h6>
+        <div class="row">
+          <div class="form-group col-md-6 required">
+            <label for="input-Address_1">Pin Code <span class="required-f">*</span></label>
+            <input name="Address_1" [(ngModel)]="Address_1" id="input-address-1" type="text" (blur)="fetchAddressFromPincode()" (ngModelChange)="onPincodeChange($event)" (ngModelChange)="onFieldChange()">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="input-Address_2">District<span class="required-f">*</span></label>
+            <input name="Address_2" [(ngModel)]="Address_2" id="input-company" placeholder="(District)" type="text" (ngModelChange)="onDistrictChange($event)" (blur)="fetchCityAndStateFromDistrict()" (ngModelChange)="onFieldChange()">
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label for="input-Address_3">Address <span class="required-f">*</span></label>
+            <input name="Address_3" [(ngModel)]="Address_3" id="input-address-2" placeholder="(Area And Street)" type="text" (ngModelChange)="onFieldChange()">
+          </div>
+          <div class="form-group col-md-6 required">
+            <label for="input-Address_4">City <span class="required-f">*</span></label>
+            <input name="Address_4" [(ngModel)]="Address_4" id="input-city" placeholder="(City/District/Town)"  (ngModelChange)="onFieldChange()" [disabled]="!isAddressFieldsEnabled" type="text">
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-md-6 required">
+            <label for="input-Address_5">State <span class="required-f">*</span></label>
+            <input name="Address_5" [(ngModel)]="Address_5" id="input-postcode" placeholder="(State)" type="text" [disabled]="!isAddressFieldsEnabled"  (ngModelChange)="onFieldChange()">
+          </div>
+        </div>
+      </fieldset>
+
+
+     
+      <fieldset>
+        <div class="row" *ngFor="let data of responseData">
+          <!-- Additional fields can be added here -->
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <div class="row">
+          <button 
+            name="save" 
+            [disabled]="!isFormDirty" 
+            (click)="onSave()" 
+            class="custom-btn">
+            Save
+          </button>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>

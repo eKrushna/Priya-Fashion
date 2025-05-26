@@ -1,0 +1,304 @@
+<div class="sticky-bar" *ngIf="isStickyBarVisible">
+  <img [src]="selectedProductImage" alt="Selected Product" class="sticky-image" />
+</div>
+
+<div class="container-fluid mt-3">
+  <div class="row" style="gap: 30px;">
+    <!-- Left-side Images for Desktop -->
+    <div class="col-lg-1 col-md-3 col-sm-4 mt-3 d-none d-lg-block">
+      <ng-container *ngFor="let product of productdata; let i = index">
+        <div *ngIf="productCodeId.toString() === product.Product_Code_Id.toString()" class="smallimage sticky-images">
+          <div *ngFor="let image of product.Images; let j = index" class="image-wrapper">
+              <!-- 👇 Replace the <img> tag here with the following: -->
+              <ng-container *ngIf="isVideo(image.P_URL); else showImage">
+                <video 
+                  [src]="getSafeURL(image.P_URL)" 
+                  class="img-fluid" 
+                  controls 
+                  (click)="selectImage(i, j)">
+                </video>
+              </ng-container>
+              <ng-template #showImage>
+                <img 
+                  [src]="defaultUrl + image.P_URL" 
+                  (click)="selectImage(i, j)" 
+                  alt="Product Image" 
+                  class="img-fluid">
+              </ng-template>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+    
+    
+
+    <!-- Carousel Column for Large Screens -->
+    <div class="col-lg-6 col-md-12 col-sm-12 d-none d-lg-block">
+  <ng-container *ngFor="let product of productdata; let i = index">
+    <div *ngIf="productCodeId.toString() === product.Product_Code_Id.toString()">
+      <div class="image-scroll-container" (scroll)="onScroll()">
+        <div *ngFor="let image of product.Images; let j = index" class="l-image">
+          <ng-container *ngIf="isVideo(image.P_URL); else showLargeImage">
+            <video 
+              [src]="getSafeURL(image.P_URL)" 
+              class="large-image" 
+              controls 
+              height="100%" 
+              width="100%">
+            </video>
+          </ng-container>
+          <ng-template #showLargeImage>
+            <img 
+              #largeImageRef 
+              [src]="defaultUrl + image.P_URL" 
+              alt="Product Image" 
+              class="large-image" 
+              (click)="displayFullScreenImage(defaultUrl + image.P_URL)" 
+              height="100%" 
+              width="100%">
+          </ng-template>
+          
+        </div>
+      </div>
+      
+    </div>
+  </ng-container>
+</div>
+
+
+<div class="col-12 mt-3 d-block d-lg-none">
+  <div #productCarousel id="productCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2000">
+    <!-- Carousel Inner -->
+    <div class="carousel-inner">
+      <ng-container *ngFor="let product of productdata; let i = index">
+        <div *ngIf="productCodeId.toString() === product.Product_Code_Id.toString()">
+          <ng-container *ngFor="let image of product.Images; let j = index">
+            <div class="carousel-item" [ngClass]="{'active': j === 0}">
+              <ng-container *ngIf="isVideo(image.P_URL); else showCarouselImage">
+                <video 
+                  [src]="getSafeURL(image.P_URL)" 
+                  class="d-block w-100" 
+                  controls>
+                </video>
+              </ng-container>
+              <ng-template #showCarouselImage>
+                <img 
+                  [src]="defaultUrl + image.P_URL" 
+                  class="d-block w-100" 
+                  alt="Product Image">
+              </ng-template>
+              
+            </div>
+          </ng-container>
+        </div>
+      </ng-container>
+    </div>
+
+    <!-- Carousel Indicators -->
+    <div class="carousel-indicators position-static mt-3">
+      <ng-container *ngFor="let product of productdata; let i = index">
+        <div *ngIf="productCodeId.toString() === product.Product_Code_Id.toString()">
+          <ng-container *ngFor="let image of product.Images; let j = index">
+            <button type="button" 
+                    data-bs-target="#productCarousel"
+                    [attr.data-bs-slide-to]="j"
+                    [ngClass]="{'active': j === 0}"
+                    class="custom-indicator">
+            </button>
+          </ng-container>
+        </div>
+      </ng-container>
+    </div>
+
+  </div>
+</div>
+
+
+
+    
+    
+
+   
+
+<div class="fullscreen-overlay" *ngIf="isFullScreenImageVisible" >
+  <div class="zoomed-image-wrapper">
+    <img [src]="fullScreenImageUrl" 
+         class="zoomed-image" 
+         alt="Zoomed Image"
+         [style.transform]="zoomTransform"
+         [style.transformOrigin]="zoomOrigin"
+         (click)="zoomImage($event)">
+    
+    <!-- Navigation Controls -->
+    <div class="controls">
+      <button class="nav-arrow left-arrow" (click)="prevImage()">&#10094;</button>
+      <button class="close-icon" (click)="closeFullScreenImage($event)" style="color: black;">&#x2716;</button>
+      <button class="nav-arrow right-arrow" (click)="nextImage()">&#10095;</button>
+    </div>
+  </div>
+</div>
+
+
+    <!-- Product Details Section -->
+    <div class="col-lg-4 col-md-12 col-sm-12 mt-4 product">
+      <div *ngFor="let productdetail of productdata; let i = index" [class.active]="i === currentIndex">
+        <div *ngIf="productCodeId.toString() === productdetail.Product_Code_Id.toString()">
+          
+          <!-- 1) Product Name -->
+          <h3 class="pt-0 product-title ms-2">
+            {{ productdetail.Product_Name }}
+          </h3>
+
+            <!-- Price & Discount Section -->
+<div class="price-section ms-2">
+  <span class="new-price">
+    ₹ 
+    {{
+      selectedRate && selectedRate > 0 
+        ? selectedRate 
+        : productdetail.Rate
+    }}
+  </span>
+
+  <span class="old-price" *ngIf="selectedMRP && selectedMRP > selectedRate">
+    ₹ {{ selectedMRP }}
+  </span>
+</div>
+            <hr/>
+
+             <!-- id Section -->
+             <div class="id-section ms-2">
+              <span class="id">Product ID: {{ productdetail.Product_Code_Id}}</span>
+            </div>
+            
+          <!-- 2) Description -->
+          <div class="product-details-section" style="padding:10px;">
+            <div *ngIf="productdetail?.Short_Description">
+              <h6 class="detail-text">{{ productdetail.Short_Description }}</h6>
+            </div>
+          </div>
+    
+          <!-- 3) Size -->
+          <div class="size-section" *ngIf="productdetail?.Sizes?.length > 0 && productdetail?.Sizes[0]?.Size_Name" >
+            <div style="display: flex; justify-content: space-between;">
+              <span class="size-label" >SIZE:</span>
+            <span class="size-chart" data-bs-toggle="modal" data-bs-target="#exampleModal" >SIZE CHART ></span>
+            </div>
+            <div class="size-buttons">
+              <button
+                *ngFor="let size of productdetail.Sizes"
+                class="size-btn"
+                [ngClass]="{'selected': selectedSize === size.Size_Name,}"
+                (click)="selectSize(size)"
+              >
+                {{ size.Size_Name }}
+              </button>
+            </div>
+            
+            
+          </div>
+
+          
+    
+          <!-- 4) Features -->
+          <div class="product-details-section" style="padding:10px;">
+            <div *ngIf="productdetail.Description1?.trim()">
+              <ng-container *ngFor="let detail of productdetail.Description1.split('\n')">
+                <ng-container *ngIf="detail.trim() !== ''">
+                  <h6 class="detail-text">{{ detail }}</h6>
+                </ng-container>
+              </ng-container>
+            </div>
+          </div>
+    
+        
+    
+        
+          <!-- Quantity Selector -->
+          <div class="quantity-selector">
+            <button class="qty-btn" (click)="decreaseQuantity()">−</button>
+            <input type="text" class="qty-input" [(ngModel)]="quantity" readonly>
+            <button class="qty-btn" (click)="increaseQuantity()">+</button>
+          </div>
+          
+
+          <div class="button-container">
+            <button class="add-to-cart" (click)="addToCart2(productdetail, quantity, productdetail.Menu_Name,selectedSize, selectedRate)">ADD TO CART</button>
+        
+              
+            <button class="btn btn-dark" (click)="buyNow(productdetail, quantity, productdetail.Menu_Name,selectedSize,selectedRate)">BUY NOW</button>
+
+            
+            <!-- <button class="buy-now">BUY IT NOW</button>
+            <button class="wishlist">
+              <span class="wishlist-icon">♡</span> ADD TO WISHLIST
+            </button>
+          
+            <div class="postal-check">
+              <input type="text" class="postal-input" placeholder="Postal code e.g. 414001">
+              <button class="check-btn">CHECK</button>
+            </div> -->
+          </div>
+          
+          
+        </div>
+      </div>
+    </div>
+    
+  
+    
+    
+  
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div >
+          *All measurements shown below refer to <strong>body measurements</strong>.
+          *All measurements in <strong>inches</strong>.
+        </div>
+        
+        <img src="assets/howtomeasure_480x.webp" alt="How to Measure">
+        
+        <div >
+          <strong>Direction to find your right fit:</strong>
+          <ul>
+            <li>If bust is 33 inches → Size S.</li>
+            <li>If bust is 35 inches → Size M.</li>
+          </ul>
+        </div>
+    
+        <table>
+          <thead>
+            <tr>
+              <th>Size</th>
+              <th>Bust</th>
+              <th>Waist</th>
+              <th>Hip</th>
+              <th>Inseam</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let size of sizeChart">
+              <td>{{ size.name }}</td>
+              <td>{{ size.bust }}</td>
+              <td>{{ size.waist }}</td>
+              <td>{{ size.hip }}</td>
+              <td>{{ size.inseam }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+

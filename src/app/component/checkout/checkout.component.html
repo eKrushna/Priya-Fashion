@@ -1,0 +1,224 @@
+<div class="container" style="margin-top: 70px;" id="container">
+  <div class="form-group col-md-6 col-lg-6 col-xl-6 required" style="display: none;">
+    <label for="input-Mobile_No">Mobile No <span class="required-f">*</span></label>
+    <input name="Mobile_No"  [(ngModel)]="Mobile_No" id="input-telephone" type="tel" required>
+    
+  </div>
+    <h2 style="text-align: center;">CHECKOUT</h2><br>
+   
+  <div class="row" style="margin-left: -15px;">
+    <!-- Details Div -->
+    <div class="col-md-6">
+      <div class="col-12 details">
+        <div class="card">
+          <div class="card-body">
+            <div class="create-ac-content bg-light-gray p-3" *ngIf="showAddressForm">
+              <form #shippingForm="ngForm">
+                <fieldset>
+                  <h2 class="login-title mb-3 text-center">Shipping Details</h2>
+    
+                  <!-- Form Fields -->
+                  <div class="row">
+                    <!-- First Name -->
+                    <div class="form-group col-12 col-md-6 required">
+                      <label for="input-firstname">First Name <span class="text-danger">*</span></label>
+                      <input name="F_Name" [(ngModel)]="F_Name" id="input-firstname" class="form-control" type="text" required>
+                      <small *ngIf="shippingForm?.controls?.['F_Name']?.invalid && (shippingForm?.controls?.['F_Name']?.dirty || shippingForm?.controls?.['F_Name']?.touched)" class="text-danger">
+                        First Name is required
+                      </small>
+                    </div>
+    
+                    <!-- Last Name -->
+                    <div class="form-group col-12 col-md-6 required">
+                      <label for="input-lastname">Last Name <span class="text-danger">*</span></label>
+                      <input name="L_Name" [(ngModel)]="L_Name" id="input-lastname" class="form-control" type="text" required>
+                      <small *ngIf="shippingForm?.controls?.['L_Name']?.invalid && (shippingForm?.controls?.['L_Name']?.dirty || shippingForm?.controls?.['L_Name']?.touched)" class="text-danger">
+                        Last Name is required
+                      </small>
+                    </div>
+                  </div>
+    
+                  <div class="row">
+                    <!-- Email -->
+                    <div class="form-group col-12 col-md-6 required">
+                      <label for="input-email">Email Id <span class="text-danger">*</span></label>
+                      <input name="Email_Id" [(ngModel)]="Email_Id" id="input-email" class="form-control" type="email" required>
+                      <small *ngIf="shippingForm?.controls?.['Email_Id']?.invalid && (shippingForm?.controls?.['Email_Id']?.dirty || shippingForm?.controls?.['Email_Id']?.touched)" class="text-danger">
+                        Valid Email Id is required
+                      </small>
+                    </div>
+    
+                    <!-- Mobile No -->
+                    <div class="form-group col-12 col-md-6 required">
+                      <label for="input-telephone">Mobile No <span class="text-danger">*</span></label>
+                      <input name="Mobile_No" [(ngModel)]="Mobile_No" id="input-telephone" class="form-control" type="tel" required>
+                      <small *ngIf="shippingForm?.controls?.['Mobile_No']?.invalid && (shippingForm?.controls?.['Mobile_No']?.dirty || shippingForm?.controls?.['Mobile_No']?.touched)" class="text-danger">
+                        Mobile No is required
+                      </small>
+                    </div>
+                  </div>
+                </fieldset>
+    
+                <!-- Shipping Address -->
+                <fieldset>
+                  <h6 class="mt-3"><b>Shipping Address</b></h6>
+    
+                  <div class="row">
+                    <!-- Pin Code -->
+                    <div class="form-group col-12 col-md-6 required">
+                      <label for="input-address-1">Pin Code <span class="text-danger">*</span></label>
+                      <input name="Address_1" [(ngModel)]="Address_1" id="input-address-1" class="form-control" type="text" required>
+                    </div>
+    
+                    <!-- Locality -->
+                    <div class="form-group col-12 col-md-6 required">
+                      <label for="input-company">District<span class="text-danger">*</span></label>
+                      <input name="Address_2" [(ngModel)]="Address_2" id="input-company" class="form-control" placeholder="District" required>
+                    </div>
+                  </div>
+    
+                  <div class="row">
+                    <!-- Address -->
+                    <div class="form-group col-12 required">
+                      <label for="input-address-2">Address <span class="text-danger">*</span></label>
+                      <input name="Address_3" [(ngModel)]="Address_3" id="input-address-2" class="form-control" placeholder="Area and Street" required>
+                    </div>
+                  </div>
+    
+                  <div class="row">
+                    <!-- City -->
+                    <div class="form-group col-12 col-md-6 required">
+                      <label for="input-city">City <span class="text-danger">*</span></label>
+                      <input name="Address_4" [(ngModel)]="Address_4" id="input-city" class="form-control" placeholder="City/District/Town" required>
+                    </div>
+    
+                    <!-- State -->
+                    <div class="form-group col-12 col-md-6 required">
+                      <label for="input-state">State <span class="text-danger">*</span></label>
+                      <input name="Address_5" [(ngModel)]="Address_5" id="input-state" class="form-control" placeholder="State" required>
+                    </div>
+                  </div>
+                </fieldset>
+    
+                <!-- Continue Button -->
+                <div class="text-center mt-4">
+                  <button name="save" class="btn btn-secondary" [disabled]="shippingForm.invalid" (click)="onSave()">Continue</button>
+                </div>
+              </form>
+            </div>
+    
+            <!-- Payment Method -->
+            <div *ngIf="!showAddressForm" class="payment-section mt-4 p-4 rounded shadow bg-white">
+              <h2 class="payment-title mb-4 text-center">Select Payment Method</h2>
+            
+              <!-- Cash On Delivery (Toggle) -->
+              <div class="payment-option mb-3 d-flex align-items-center">
+                <input 
+                  type="checkbox"
+                  id="cod-toggle"
+                  [checked]="selectedPaymentMethod === 'COD'"
+                  (change)="toggleCOD()"
+                  class="form-check-input me-2"
+                >
+                <label for="cod-toggle" class="form-check-label fw-bold">
+                  <i class="bi bi-cash-coin me-2"></i> Cash On Delivery
+                </label>
+              </div>
+            
+              <!-- Credit/Debit Card Option -->
+              <div class="payment-option card mb-3 border-0 shadow-sm">
+                <div class="card-body p-3 d-flex align-items-center justify-content-between">
+                  <span class="fw-bold">
+                    <i class="bi bi-credit-card-2-front me-2"></i> Credit / Debit / ATM
+                  </span>
+                  <a href="javascript:void(0);" class="text-primary fw-semibold" (click)="initiatePayment()">
+                    Pay Now <i class="bi bi-arrow-right-circle ms-1"></i>
+                  </a>
+                </div>
+              </div>
+            
+              <!-- Place Order Button -->
+              <div class="order-button-payment">
+                <button class="btn" value="Place order" type="button"
+ [disabled]="!isPaymentModeSelected || SharedService.cartItems.length === 0 "
+(click)="uploadtoServer();">Place order</button>
+
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+   <!-- Order Div -->
+   <div class="col-md-6 order-container">
+    <div class="order">
+      <div class="your-order-payment">
+        <div class="your-order">
+          <h2 class="order-title mb-3">My Order</h2>
+          <div class="table-responsive-sm order-table">
+            <table class="table table-bordered table-hover text-center">
+              <thead class="table-header">
+                <tr>
+                  <th>Product Image</th>
+                  <th class="text-left">Product Name</th>
+                  <th>Size</th>
+                  <th>id</th>
+                  <th>Quantity</th>
+                  <th>Rate</th>
+                  <th>Subtotal</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of cartItems">
+                  <td class="cart-image-wrapper">
+                    <img [src]="'https://ppriyafashion.com/business_guru_admin/Product_Image/' + item.image" 
+                         alt="Selected Product" class="cart-image">
+                  </td>
+                  <td class="text-left">
+                    {{ item.name.length > 28 ? (item.name | slice:0:28) + '...' : item.name }}
+                  </td>
+                  
+                  <td>{{ item.size}}</td>
+                  <td>{{item.product_id}}</td>
+                  <td>{{ item.quantity }}</td>
+                  <td>&#8377;{{ item.rate | number:'1.2-2' }}</td>
+                  <td>&#8377;{{ item.quantity * item.rate | number:'1.2-2' }}</td>
+                </tr>
+              </tbody>
+              <tfoot class="table-footer">
+                <tr>
+                  <td colspan="4" class="text-right">Shipping</td>
+                  <td colspan="2">&#8377; 00</td>
+                </tr>
+                <tr>
+                  <td colspan="4" class="text-right">Total</td>
+                  <td colspan="2">&#8377;{{ SharedService.calculateGrandTotal() | number:'1.2-2' }}</td>
+                </tr>
+                <tr>
+                  <td colspan="2" class="text-right">GST</td>
+                  <td>{{ SharedService.gstRate }}%</td>
+                  <td>GST Amount</td>
+                  <td colspan="2">&#8377;{{ SharedService.getGstat() | number:'1.2-2' }}</td>
+                </tr>
+                <tr>
+                  <td colspan="4" class="text-right">Total Amount</td>
+                  
+                  <td colspan="2">&#8377;{{ SharedService.calculateGrandTotal2() | number:'1.2-2' }}</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+        <hr>
+      </div>
+    </div>
+  </div>
+  
+      
+  </div>
+</div>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>

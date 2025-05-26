@@ -1,0 +1,249 @@
+
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+
+  .offer-navbar {
+    background-color:rgba(255, 0, 0); /* Dark Blue */
+    color:white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 30px;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .scrolling-container {
+    display: flex;
+    overflow: hidden;
+    flex-grow: 1;
+    position: relative;
+    margin: 0 50px; /* Space from left and right side */
+  }
+  
+
+
+  .scrolling-text {
+    display: flex;
+    white-space: nowrap;
+    position: relative;
+  }
+
+  .scrolling-items {
+    display: inline-block;
+    animation: slides 15s linear infinite; /* Continuous smooth animation */
+  }
+
+  .scrolling-items span {
+    display: inline-block;
+    margin-right: 80px; /* Space between messages */
+    font-size: 16px;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+
+  @keyframes slides {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-100%);
+    }
+  }
+
+  .store-buttons img {
+    height: 33px;
+    margin-left: 10px;
+    transition: all 0.3s ease;
+  }
+
+  @media (max-width: 768px) {
+    .scrolling-container {
+      width: 100%;
+      margin: 0;
+    }
+
+    .scrolling-items span {
+      font-size: 14px; /* Smaller text for mobile */
+      margin-right: 40px; /* Less space between messages */
+    }
+
+    .store-buttons img {
+      height: 25px; /* Smaller store button images */
+      margin-left: 5px;
+    }
+  }
+</style>
+
+<!--<div class="offer-navbar">
+  <div class="scrolling-container">
+    <div class="scrolling-text">
+      <div class="scrolling-items">
+        <span>🎉 SEASON SALE IS LIVE | ENJOY UP TO 70% OFF</span>
+        <span>PRIYA FASHION SHOPPING</span>
+        <span>END OF SEASON SALE!</span>
+      </div>
+      <div class="scrolling-items">
+        <span>🎉 SEASON SALE IS LIVE | ENJOY UP TO 70% OFF</span>
+        <span>PRIYA FASHION SHOPPING </span>
+        <span>END OF SEASON SALE!</span>
+      </div>
+    </div>
+  </div>
+
+</div>-->
+
+
+
+<nav class="navbar navbar-expand-lg">
+  <div class="container-fluid">
+    <!-- Toggler Button (Mobile Menu) -->
+    <button class="navbar-toggler" type="button" (click)="toggleNavbar()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Logo -->
+    <a class="navbar-brand" routerLink="/" (click)="navigateToHome($event)">PriyaFashion</a>
+
+    <!-- Navbar Menu -->
+    <div class="collapse navbar-collapse" [ngClass]="{'show': isNavbarOpen}">
+      <div class="custom-navbar d-flex justify-content-center">
+        <ul class="navbar-nav d-flex flex-wrap justify-content-center">
+          <li class="nav-item text-center" *ngFor="let menu of menus; let i = index" [style.--i]="i + 1">
+            <a class="nav-link text-center" href="#" (click)="navigateToCollection(menu.Menu_Name, $event)">
+              {{ menu.Menu_Name }}
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Icons -->
+    <div class="navbar-icons d-flex align-items-center ms-auto">
+      <div class="dropdown">
+        <i
+          class="fa fa-user icon dropdown-toggle"
+          id="dropdownMenuButton"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+          (click)="goToMyOrders()"
+        ></i>
+
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <!-- If user is logged in, display a greeting and the Logout button -->
+          <li
+            *ngIf="loginService.getCustomer()?.length > 0"
+            class="dropdown-item"
+          >
+            Hello, {{ loginService.getCustomer()[0].User_Name }}
+          </li>
+
+          <li *ngIf="loginService.getCustomer()?.length > 0">
+            <a
+              class="dropdown-item"
+              href="javascript:void(0)"
+              (click)="logout()"
+              >Logout</a
+            >
+          </li>
+
+          <!-- If user is not logged in, display the Login button -->
+          <li
+            *ngIf="
+              !loginService.getCustomer() ||
+              loginService.getCustomer()?.length === 0
+            "
+          >
+            <a class="dropdown-item" [routerLink]="'/login'">Login</a>
+          </li>
+        </ul>
+      </div>
+      
+      <i class="fa-regular fa-heart me-3"></i>
+      <i class="fa fa-search me-3" (click)="toggleSearchModal()"></i>
+      <i class="fa fa-shopping-bag position-relative" (click)="navigatetocart($event)">
+        <span class="cart-badge">{{ cartItemCount }}</span>
+      </i>
+      
+    </div>
+  </div>
+</nav>
+
+
+<div
+  *ngIf="showSearchModal"
+  class="full-width-search-modal"
+  [style.maxHeight]="filteredProducts.length > 0 ? '80vh' : 'auto'"
+>
+
+  <!-- Search Input Field -->
+  <div class="search-container">
+    <input
+    type="text"
+    class="search-input"
+    placeholder="Search for products..."
+    [(ngModel)]="searchTerm"
+    (input)="onSearchChange()"
+    #searchInput
+  />
+  
+   
+    <button class="close-btn" (click)="toggleSearchModal()">✖</button>
+    <hr/>
+  </div>
+
+  <!-- Filtered Product List Below Input -->
+ <!-- Show only when there is a search term -->
+<div *ngIf="filteredProducts.length > 0 && searchTerm.trim()" class="product-grid">
+  <div *ngFor="let product of filteredProducts let i = index">
+    <div class="product-card text-center">
+      <div class="image-container">
+        <img [src]="getHoveredImageUrl(product, i)" 
+        (mouseover)="hoveredProductIndex = i" 
+        (mouseleave)="hoveredProductIndex = -1" 
+        class="product-image img-fluid" 
+        alt="{{ product.Product_Name }}" 
+        (click)="goToProductDetails(product)">     
+      </div>
+      <div class="product-info">
+        <h5>{{ truncateProductName(product.Product_Name) }}</h5>
+
+        <p style="color: red;">&#8377;{{ product.Rate }}</p>
+      </div>
+      <div class="size-buttons mt-0">
+        <button
+          *ngFor="let size of product.Sizes"
+          class="size-btn"
+          [ngClass]="{'selected': selectedSize === size.Size_Name}"
+          (click)="selectedSize = size.Size_Name"
+        >
+          {{ size.Size_Name }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+
+ <!-- Sidebar Cart Overlay (Clickable to close) -->
+<div *ngIf="showCartSidebar" class="cart-overlay" (click)="closeSidebar()"></div>
+
+<!-- Sidebar Cart -->
+<div *ngIf="showCartSidebar" class="cart-sidebar" (click)="stopPropagation($event)">
+  <button class="close-btn" (click)="closeSidebar()">✖</button>
+  <app-add-to-cart></app-add-to-cart>
+</div>
+
+
+
+<!-- Promotional Banner Below Navbar -->
+<!-- <div class="promo-banner text-center">
+  <img src="assets/Screenshot 2025-02-28 115554.png" alt="Flat 100 OFF" class="img-fluid">
+</div> -->
+

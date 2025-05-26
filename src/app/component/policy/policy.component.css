@@ -1,0 +1,75 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+/* Main container */
+.shopify-policy__container {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #fff;
+  
+    border-radius: 8px;
+}
+
+/* Title */
+.shopify-policy__title {
+    text-align: center;
+    font-size: 2rem;
+    padding: 10px;
+    opacity: 0.7;
+    font-family:Hansom FY Regular;
+}
+
+/* Policy Body */
+.shopify-policy__body {
+    font-size: 1rem;
+    line-height: 1.6;
+   
+}
+
+/* Paragraph Styling */
+.shopify-policy__body p {
+    margin-bottom: 15px;
+    opacity: 0.7;
+    font-family: Burford Rustic Line Light;
+    text-align: justify;
+}
+
+/* Highlighted Sections */
+.shopify-policy__body strong {
+    font-weight: bold;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .shopify-policy__container {
+        max-width: 100%;
+        margin: 10px;
+        padding: 15px;
+    }
+
+    .shopify-policy__title {
+        font-size: 1.2rem;
+    }
+
+    .shopify-policy__body {
+        font-size: 0.95rem;
+    }
+}
+
+/* Small Devices */
+@media (max-width: 480px) {
+    .shopify-policy__title {
+        font-size: 1.3rem;
+    }
+
+    .shopify-policy__body {
+        font-size: 0.9rem;
+    }
+}

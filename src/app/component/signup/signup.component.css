@@ -1,0 +1,23 @@
+.overlay-text {
+    position: absolute; /* Position the h1 element absolutely */
+    top: 10px; /* Position it at the top of the container */
+    left: 70px; /* Position it at the left of the container */
+    color: #001c2b; /* Set the text color */
+    font-size: 32px; /* Set the font size */
+    font-size: 50px;
+    font-family: 'Seasons', sans-serif;
+    z-index: 1; /* Set a higher z-index to place it above the images */
+  }
+  
+  @media (max-width: 767px) {
+      .overlay-text {
+        font-size: 24px; /* Adjust the font size for mobile view */
+      }
+  }
+  .sing_label{
+    margin-bottom: 0.1rem;
+  }
+  
+  .sign_Input{
+    height: 32px;
+  }

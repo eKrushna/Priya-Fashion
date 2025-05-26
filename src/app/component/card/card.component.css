@@ -1,0 +1,289 @@
+
+.product-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.image-container {
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.4s ease-in-out;
+  /* border: 1px solid black; */
+}
+
+.product-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit:cover;
+}
+
+
+
+.product-info h5{
+  margin-top: 5px;
+  font-size: 15px;
+  text-align: center;
+  font-family: Burford Rustic Line Light;
+  text-transform: uppercase;
+  letter-spacing: 1.5px; 
+  opacity: 0.7; /* Lower value = lighter text */
+}
+.product-info p{
+  align-items:baseline;
+  color: red;
+}
+
+.desktop-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.mobile-img {
+  display: none;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+@media (max-width: 768px) {
+  .desktop-img {
+    display: none;
+  }
+
+  .mobile-img {
+    display: block;
+  }
+}
+
+.arrivals-title {
+  font-family: Burford Rustic Line Light;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  opacity: 0.6; 
+}
+
+.arrivals-nav .nav-link {
+  color:black;
+  font-size: 18px;
+  text-decoration: none;
+  position: relative;
+  display: inline-block;
+  transition: color 0.3s ease;
+  font-family: Burford Rustic Line Light;
+  text-transform: uppercase;
+  letter-spacing: 1.5px; 
+  opacity: 0.6; /* Lower value = lighter text */
+}
+
+.arrivals-nav .nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  height: 2px;
+  background-color: black;
+  transition: width 0.4s ease-in-out;
+}
+
+.arrivals-nav .nav-link.active::after {
+  width: 100%;
+}
+.product-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
+}
+
+.product-card.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.product-info {
+  text-align: left; /* Align all text inside product-info to the left */
+}
+
+.product-info p {
+  margin: 0;        /* Remove default margin */
+  text-align: left; /* Ensure price aligns left */
+}
+
+/* -----button------- */
+
+/* button {
+  margin: 20px;
+} */
+.custom-btn {
+  width: 130px;
+  height: 40px;
+  color: #fff;
+  border-radius: 5px;
+  padding: 10px 25px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+   box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+   7px 7px 20px 0px rgba(0,0,0,.1),
+   4px 4px 5px 0px rgba(0,0,0,.1);
+  outline: none;
+}
+
+.btn-7 {
+  background: linear-gradient(0deg, rgba(255,151,0,1) 0%, rgba(251,75,2,1) 100%);
+    line-height: 42px;
+    padding: 0;
+    border: none;
+  }
+  .btn-7 span {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  .btn-7:before,
+  .btn-7:after {
+    position: absolute;
+    content: "";
+    right: 0;
+    bottom: 0;
+    background: rgba(251,75,2,1);
+    box-shadow:
+     -7px -7px 20px 0px rgba(255,255,255,.9),
+     -4px -4px 5px 0px rgba(255,255,255,.9),
+     7px 7px 20px 0px rgba(0,0,0,.2),
+     4px 4px 5px 0px rgba(0,0,0,.3);
+    transition: all 0.3s ease;
+  }
+  .btn-7:before{
+     height: 0%;
+     width: 2px;
+  }
+  .btn-7:after {
+    width: 0%;
+    height: 2px;
+  }
+  .btn-7:hover{
+    color: rgba(251,75,2,1);
+    background: transparent;
+  }
+  .btn-7:hover:before {
+    height: 100%;
+  }
+  .btn-7:hover:after {
+    width: 100%;
+  }
+  .btn-7 span:before,
+  .btn-7 span:after {
+    position: absolute;
+    content: "";
+    left: 0;
+    top: 0;
+    background: rgba(251,75,2,1);
+    box-shadow:
+     -7px -7px 20px 0px rgba(255,255,255,.9),
+     -4px -4px 5px 0px rgba(255,255,255,.9),
+     7px 7px 20px 0px rgba(0,0,0,.2),
+     4px 4px 5px 0px rgba(0,0,0,.3);
+    transition: all 0.3s ease;
+  }
+  .btn-7 span:before {
+    width: 2px;
+    height: 0%;
+  }
+  .btn-7 span:after {
+    height: 2px;
+    width: 0%;
+  }
+  .btn-7 span:hover:before {
+    height: 100%;
+  }
+  .btn-7 span:hover:after {
+    width: 100%;
+  }
+  
+
+  .cart-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1049;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  .cart-sidebar {
+    position: fixed;
+    top: 60px;
+    right: -400px; /* Start hidden */
+    width: 400px;
+    height: 100%;
+    background: white;
+    box-shadow: -3px 0 10px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    overflow-y: auto;
+    z-index: 1050;
+    display: flex;
+    flex-direction: column;
+    transition: right 0.3s ease-in-out;
+  }
+  
+  /* Show Sidebar */
+  .cart-sidebar.show {
+    right: 0;
+  }
+  
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+  }
+
+  .size-buttons {
+    margin-top: 10px;
+    display: flex;
+    gap: 5px;
+    flex-wrap:nowrap;
+  }
+  
+  .size-btn {
+    padding: 8px 5px;
+    background-color: white; /* White background */
+    border: 2px solid #ccc; /* Light gray border */
+    cursor: pointer;
+    font-size: 10px;
+    font-weight: bold;
+    text-align: center;
+    width: 30px; /* Circular shape */
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #666; /* Light text */
+  }
+  

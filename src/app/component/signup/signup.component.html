@@ -1,0 +1,79 @@
+
+
+
+<br>
+<br>
+<br>
+<br>
+
+
+<div id="page-content">
+  <!--Page Title-->
+  <div class="page  text-center">
+    <div class="page-title">
+      <div class="wrapper">
+        <h1 class="page-width">SignUp</h1>
+      </div>
+    </div>
+  </div>
+  <!--End Page Title-->
+
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-sm-12 col-md-6 col-lg-6 main-col offset-md-3">
+        <div class="mb-4">
+          <form #signupForm="ngForm" (ngSubmit)="signup()">
+            <!-- Name field -->
+            <div class="form-group">
+              <label style="font-family: sans-serif; font-size: 16px; color:#001c2b; margin-bottom:0.1rem ;" for="CustomerName" >User Name</label>
+              <input  style="font-family: sans-serif; font-size: 16px; color:#001c2b; height:32px;"type="text" class="sign_Input" [(ngModel)]="customer.User_Name" name="customer[User_Name]" placeholder=""
+                id="CustomerName" class="form-control" required>
+              <div *ngIf="signupForm.controls['customer[User_Name]'].invalid && (signupForm.controls['customer[User_Name]'].dirty || signupForm.controls['customer[User_Name]'].touched)"
+                class="text-danger" style="font-family: sans-serif; font-size: 16px; color:#001c2b;">
+                User Name is required.
+              </div>
+            </div>
+          
+            <!-- Password field-->
+            <div class="form-group">
+              <label  style="font-family: sans-serif; font-size: 16px; color:#001c2b; margin-bottom:0.1rem ;" for="CustomerPassword" >Password</label>
+              <input style="font-family: sans-serif; font-size: 15px; color:#001c2b; height:32px;" class="sign_Input" type="password" [(ngModel)]="customer.Password1" name="customer[Password1]" placeholder=""
+                id="CustomerPassword" class="form-control" minlength="6" required>
+              <div *ngIf="signupForm.controls['customer[Password1]'].invalid && (signupForm.controls['customer[Password1]'].dirty || signupForm.controls['customer[Password1]'].touched)"
+                class="text-danger" style="font-family: sans-serif; font-size: 16px; color:#001c2b;">
+                Password is required and should be at least 6 characters long.
+              </div>
+            </div>
+          
+            <!-- Mobile field -->
+            <div class="form-group">
+              <label style="font-family: sans-serif; font-size: 16px; color:#001c2b; margin-bottom:0.1rem ;" for="CustomerMobile" >Mobile No</label>
+              <input type="text" style="height:32px;" [(ngModel)]="customer.Mobile_No" name="customer[Mobile_No]" class="sign_Input" placeholder=""
+                id="CustomerMobile" class="form-control" pattern="[0-9]{10}" required style="font-family: sans-serif; font-size: 16px; color:#001c2b; height: 32px;">
+              <div *ngIf="signupForm.controls['customer[Mobile_No]'].invalid && (signupForm.controls['customer[Mobile_No]'].dirty || signupForm.controls['customer[Mobile_No]'].touched)"
+                class="text-danger" style="font-family: sans-serif; font-size: 15px; color:#001c2b;">
+                Mobile number is required.
+              </div>
+            </div>
+            <div class="form-group">
+              <label style="font-family: sans-serif; font-size: 16px; color:#001c2b; margin-bottom:0.1rem ;" for="CustomerMobile" >Email Id</label>
+              <input type="text"  [(ngModel)]="customer.Email_Id" name="customer[Email_Id]" class="sign_Input" placeholder=""
+              
+              id="CustomerEmail_Id" class="form-control sing_label"  required style="font-family: sans-serif; font-size: 16px; color:#001c2b; height:32px;">
+              <div *ngIf="signupForm.controls['customer[Email_Id]'].invalid && (signupForm.controls['customer[Email_Id]'].dirty || signupForm.controls['customer[Email_Id]'].touched)"
+                class="text-danger" style="font-family: sans-serif; font-size: 15px; color:#001c2b;">
+                Email Id is required.
+              </div>
+            </div>
+          
+            <!-- Submit button -->
+            <div class="text-center" style="font-family: sans-serif; font-size: 15px; color:#001c2b;">
+              <!-- Submit button-->
+              <button type="submit" class="btn btn-dark mb-3" [disabled]="!signupForm.valid" style="border-radius: 3px;">Sign Up</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

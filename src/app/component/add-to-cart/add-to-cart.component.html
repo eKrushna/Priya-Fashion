@@ -1,0 +1,70 @@
+
+<div class="container cart-container">
+  <ng-container *ngIf="cartItems.length > 0; else emptyCart">
+    <div class="row cart-header d-none d-md-flex">
+      <div class="col-md-6">PRODUCT</div>
+      <div class="col-md-2 text-center">SIZE</div>
+      <div class="col-md-2 text-center">QUANTITY</div>
+      <div class="col-md-2 text-center">TOTAL</div>
+    </div>
+
+    <div *ngFor="let item of cartItems; let i = index" class="row cart-item align-items-center">
+      <!-- Product Details -->
+      <div class="col-12 col-md-6 d-flex align-items-center">
+        <img [src]="'https://ppriyafashion.com/business_guru_admin/Product_Image/' + item.image"
+          alt="{{ item.name }}" class="product-image me-3 img-fluid">
+        <div class="product-info">
+          <h4>{{ item.name }}</h4>
+          <p>₹ {{ item.rate }}</p>
+        </div>
+      </div>
+
+      <!-- Display Selected Size -->
+      <div class="col-6 col-md-2 text-center">
+        <span >{{ item.size }}</span>
+      </div>
+
+      <!-- Quantity Controls -->
+      <div class="col-6 col-md-2 text-center">
+        <div class="d-flex justify-content-center align-items-center">
+          <button class="btn btn-outline-secondary btn-sm" (click)="decreaseQuantity(i)">−</button>
+          <span class="mx-2">{{ item.quantity }}</span>
+          <button class="btn btn-outline-secondary btn-sm" (click)="increaseQuantity(i)">+</button>
+        </div>
+      </div>
+
+      <!-- Total Price -->
+      <div class="col-6 col-md-2 text-center fw-bold">
+        ₹ {{ item.rate * item.quantity }}
+      </div>
+
+      <!-- Remove Button -->
+      <div class="col-12 text-end mt-2">
+        <button (click)="cartService.removeProduct(item.name, item.size)" class="btn" style="background-color: red;">
+          Remove from Cart
+        </button>
+        
+      </div>
+    </div>
+
+    <div class="order-note mt-3">
+      <label class="fw-bold">Add order note</label>
+      <textarea class="form-control" placeholder="How can we help you?"></textarea>
+    </div>
+
+    <div class="cart-footer text-end mt-3">
+      <p class="fw-bold">Total: ₹ {{ getTotalAmount() }}</p>
+      <p class="text-muted small">Tax included. <a style="color: blue; cursor: pointer;" (click)="navigate()">Shipping</a> calculated at checkout.</p>
+      <button class="btn btn-dark" routerLink="/checkout">CHECKOUT</button>
+    </div>
+  </ng-container>
+
+  <!-- Empty Cart Message -->
+  <ng-template #emptyCart>
+    <div class="text-center py-5">
+      <h4>Your cart is empty!</h4>
+      <p>Looks like you haven't added anything yet.</p>
+      <button class="btn btn-primary" routerLink="/product">Go to Shopping</button>
+    </div>
+  </ng-template>
+</div>

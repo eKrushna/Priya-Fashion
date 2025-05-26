@@ -1,0 +1,119 @@
+.card {
+  border-radius: 10px;
+  transition: transform 0.3s;
+}
+.card:hover {
+  transform: scale(1.05);
+}
+.card img {
+  height: 120px;
+  object-fit: contain;
+  border-radius: 10px;
+}
+.card-title {
+  font-weight: bold;
+  font-size: 18px;
+}
+.card-text {
+  font-size: 16px;
+  padding: 5px;
+}
+.btn {
+  font-size: 12px;
+}
+.container {
+    display: flex;
+    justify-content: end; /* Centers content horizontally */
+    align-items: center; /* Centers content vertically */
+  width:100%;
+  overflow: hidden;
+  margin-top: -24%;
+}
+
+/* Responsive adjustments */
+@media (max-width: 991px) {
+  .container {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    width: 100%;
+    padding: 0 15px;
+  }
+}
+
+@media (max-width: 767px) {
+  .card {
+    padding:0px 30px;
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  .card img {
+    height: auto;
+    padding: 0;
+    width: 100%;
+  }
+  .container {
+    margin-top: 10px;
+    padding: 0 10px;
+  }
+}
+ 
+/* Custom Modal Styling (if needed, otherwise use Bootstrap defaults) */
+.modal-content { /* Example: Add some custom styling to modal content */
+  border-radius: 10px;
+}
+
+.modal-header { /* Example: Style the modal header */
+  background-color: #f0f0f0; /* Light gray background */
+}
+
+/* Tracking Details Styling */
+.tracking-details {
+  padding: 20px;
+}
+
+.form-field {
+  margin-bottom: 20px; /* Space between form fields */
+  display: flex; /* Use flexbox for layout */
+  align-items: flex-start; /* Align labels to the top */
+}
+
+.label {
+  font-weight: bold;
+  /* Blue label color */
+  width: auto; /* Fixed width for labels (adjust as needed) */
+  margin-right: 10px; /* Space between label and value */
+  text-align: left; /* Align labels to the left */
+}
+
+.value {
+  flex: 1; /* Allow value to take up remaining space */
+  word-wrap: break-word; /* Allow long values to wrap */
+}
+.loading-space {
+  height: 700px;
+}
+
+
+/* Close button styling (if needed) */
+.close { /* Example: Style the close button */
+  margin-left: auto; /* Push to the right */
+  border: none;
+  background: none;
+  font-size: 20px;
+  padding: 0;
+  cursor: pointer;
+}
+.loading-space {
+  min-height: 500px;
+}
+
+.empty-order-container {
+  min-height: 500px; /* Ensures enough space when no orders are available */
+   
+}
+.container
+{
+  min-height: 500px; /* Ensures enough space when no orders are available */
+
+}

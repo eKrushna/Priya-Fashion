@@ -1,0 +1,151 @@
+.checkout-container {
+  padding: 20px;
+}
+
+.checkout-title {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: #343a40;
+}
+
+.card {
+  border-radius: 12px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.form-control {
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.custom-button {
+  background-color: #007bff;
+  color: white;
+  margin-top: 15px;
+}
+
+@media (max-width: 768px) {
+  .checkout-container {
+    padding: 10px;
+  }
+
+  .section-title {
+    font-size: 1.2rem;
+  }
+}
+
+
+.order-container {
+  padding: 10px; /* Reduced padding for decreased height */
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  height: 580px; /* Optional: Set a maximum height if needed */
+  overflow-y: auto;
+}
+
+@media (max-width: 768px) {
+  .order-container {
+    padding: 8px; /* Further reduced padding for smaller screens */
+    max-height: 300px; /* Adjusted max height for mobile view */
+  }
+}
+
+.order-title {
+  font-size: 1.8rem;
+  margin-bottom: 25px;
+  text-align: center;
+  
+}
+
+.table-header {
+  background-color: #007bff;
+  color: white;
+}
+
+.table th,
+.table td {
+  vertical-align: middle;
+  font-size: 0.9rem;
+}
+
+.table th {
+  font-weight: 600;
+}
+
+.cart-image-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.cart-image {
+  height: 50px;
+  width: auto;
+  object-fit: contain;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.table-footer td {
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  .order-container {
+    padding: 15px;
+  }
+
+  .order-title {
+    font-size: 1.5rem;
+  }
+
+  .table th,
+  .table td {
+    font-size: 0.8rem;
+    padding: 8px;
+  }
+
+  .cart-image {
+    height: 40px;
+    width: 30px;
+  }
+}
+
+
+
+
+.table {
+  width: 100%;
+  min-width: 500px; /* Ensures the table doesn't shrink too much */
+  /* height: 50vh; */
+}
+
+@media (max-width: 768px) {
+  .order-container {
+    padding: 8px;
+    max-height: 400px;
+    margin-bottom: 30px;
+  }
+
+  .order-title {
+    font-size: 1.5rem;
+  }
+
+  .table th,
+  .table td {
+    font-size: 0.8rem;
+    padding: 8px;
+  }
+
+  .cart-image {
+    height: 40px;
+    width: 30px;
+  }
+
+}

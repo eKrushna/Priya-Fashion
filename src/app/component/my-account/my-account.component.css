@@ -1,0 +1,319 @@
+/* Card Styling */
+.container{
+    margin-left: 65px;
+  
+  }
+  .option-card{
+    width:350px;
+  }
+  .card {
+    margin-left: 10px;
+      border: none;
+      border-radius: 10px;
+    }
+    
+    /* Profile Icon */
+    .profile-img i {
+      color: #007bff;
+    }
+    
+    /* List Group Items */
+    .list-group{
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .list-group-item {
+      border: none;
+      padding: 10px 15px;
+      transition: background-color 0.3s ease-in-out;
+    }
+    
+    .list-group-item:hover {
+      background-color: #f8f9fa; /* Light gray background on hover */
+    }
+    
+    /* Links Styling */
+    .list-group-item a {
+      font-size: 15px;
+      font-weight: 500;
+    }
+    
+    .list-group-item a:hover {
+      text-decoration: none;
+      color: #0056b3; /* Darker blue on hover */
+    }
+    
+    /* Logout Button */
+    .btn-outline-danger {
+      border-radius: 50px;
+      font-weight: bold;
+    }
+    
+    .btn-outline-danger:hover {
+      background-color: #dc3545;
+      color: white;
+      border-color: #dc3545;
+    }
+    .profile-initial {
+      width: 50px; /* Adjust size as needed */
+      height: 50px; /* Adjust size as needed */
+      background-color: #23568b; /* Adjust the background color */
+      border-radius: 50%; /* Make it circular */
+      font-size: 2rem; /* Font size for the initial */
+      font-weight: bold; /* Bold text */
+      display: flex;
+      color:white;
+     
+      align-items: center;
+      justify-content: center;
+      text-transform: uppercase; /* Ensure uppercase letters */
+    }
+    .profile-info {
+      width: 100%; /* You can adjust this value */
+    max-width: 400px; /* Optional: set a max width for the profile section */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px; /* Optional padding for spacing */
+      background-color: #ffffff; /* White background */
+      border-radius: 10px; /* Rounded corners */
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Light shadow */
+      transition: transform 0.2s; /* Smooth scaling effect on hover */
+    }
+    .list-group-item-shadow {
+      padding: 5px 10px; /* Increase padding for height */
+      min-height: 40px; /* Optional: Set a minimum height */
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Slight shadow */
+      margin-bottom: 8px; /* Optional: space between items */
+      transition: box-shadow 0.3s ease; /* Smooth transition for hover effect */
+    }
+    /* Add this to your component's CSS or global styles */
+  .active-link {
+      font-weight: bolder!important;
+      
+  
+    }
+  
+    .card-title{
+      color: black;
+      font-size: 30px;
+      font-weight:400;
+    }
+    .card-username{
+      font-family: inherit;
+      color: black;
+      margin-left: 25px;
+      margin-top: 5px;
+    }
+    .card-text{
+      color: black!important;
+      margin-top: -10px;
+      margin-bottom: 10px;
+      margin-left: -40px;
+  
+  
+    }
+    .menu-divider {
+      margin-top: 7px;
+      margin-bottom: 7px;
+      padding: 0;
+      border: 0;
+      border-top: 1px solid #ddd; /* Add a light divider */
+      height: 2px; /* Make sure the divider is only 1px high */
+    }
+    .icon-size {
+      width: 20px;
+      height: 20px;
+      margin-right: 10px;
+      margin-left: 10px;
+    }
+    .list-group-item.active-link::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 4px; /* The width of the vertical bar */
+      background-color:gray; /* The color of the vertical bar */
+    }
+    
+    /* Remove the hover vertical bar effect from active items */
+    .list-group-item:hover::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 4px;
+      background-color:gray; /* Lighter blue on hover */
+     
+    }
+    .list-group-item a span {
+      font-family: inherit; transition: transform 0.3s ease-in-out; 
+    }
+    
+    /* Ensure the hover effect is not applied to the active item */
+    .list-group-item.active-link:hover::before {
+      content: none!important; /* Disable the hover effect for active items */
+    }
+    .list-group-item a:hover span {
+      letter-spacing: 0.5px;
+      font-weight: bold;
+    } 
+    @media (max-width: 768px) {
+      ul.responsive-menu {
+        width: 100%; /* Ensures it doesn't exceed the screen width */
+        margin: 0px; /* Removes unwanted margin */
+        padding: 0px; /* Removes unwanted padding */
+      }
+      
+      .responsive-menu {
+      
+        margin-right: 10px;
+        display: flex;
+        flex-direction: row; 
+        justify-content: space-between; 
+        align-items: center; 
+        gap: 1rem; 
+        padding: 20px;
+     
+        overflow-x: auto; 
+        white-space: nowrap;
+        scroll-behavior: smooth; 
+    -ms-overflow-style: none; 
+    scrollbar-width: none; 
+  }
+  .scrollable-menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-height: 70vh; /* Adjust as needed */
+    overflow-y: auto;
+    width: 100%;
+    padding: 15px;
+  }
+  
+  .responsive-menu::-webkit-scrollbar {
+    display: none; /* Hides the scrollbar in WebKit browsers (Chrome, Safari) */
+  }
+  * {
+    box-sizing: border-box;
+  }
+  
+      
+  
+      
+      .responsive-menu .list-group-item {
+        flex: 1 1 auto; /* Allows flexibility within the parent container */
+        max-width: 100px;
+        padding: 10px;
+        box-shadow: none !important;
+        text-align: center; /* Center align text and icons */
+        padding: 0.5rem 0; /* Add vertical spacing */
+        border: none; /* Optional: Remove borders if needed */
+        flex: 0 0 auto; /* Ensure items do not stretch */
+    width: 100%;
+      }
+      
+      .responsive-menu .list-group-item a {
+        display: flex;
+        flex-direction: column; /* Stack icon and text vertically */
+        align-items: center;
+        text-decoration: none;
+      }
+      
+      .responsive-menu .list-group-item i {
+        font-size: 1.2rem; /* Adjust icon size */
+        margin-bottom: 10px;
+      }
+      
+      .responsive-menu .list-group-item span {
+        font-size: 0.8rem; /* Adjust text size */
+        white-space: nowrap;
+      }
+      .dots-navigation {
+        display: flex;
+        justify-content: center;
+        gap: 5px;
+      }
+      
+      .dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background-color: #ccc;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+      
+      .dot.active {
+        background-color:black; /* Active dot color */
+      }
+      
+      .dot:hover {
+        background-color: black; /* Hover effect */
+      }
+      .profile-container {
+        display: flex;
+        flex-direction: column; /* Stack elements vertically */
+        align-items: center; /* Center content horizontally */
+        justify-content: center; /* Center content vertically */
+      }
+      
+      .profile-initial {
+        font-size: 2rem; /* Adjust size of profile initial */
+        background-color: #23568b;
+        border-radius: 50%;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 20px;
+      }
+      .card-body{
+        margin-top: 0%;
+      }
+      
+      .card-body .card-title {
+        margin-bottom: 0px; /* Adjust spacing between titles */
+      }
+      .list-group-item a i {
+        font-size: 1.5rem;  /* Adjust the size of the logout icon */
+      }
+      .scrollable-menu {
+        overflow-x: auto; /* Enable horizontal scrolling */
+        white-space: nowrap; /* Prevent items from wrapping to the next line */
+      }
+      
+      .responsive-menu {
+        display: inline-flex; /* Ensure list items remain in a row */
+        flex-wrap: nowrap; /* Prevent wrapping */
+        width: max-content; /* Allow horizontal scrolling for content larger than the screen width */
+      }
+      
+      .list-group-item {
+        flex: 0 0 auto; /* Ensure items don't stretch */
+      }
+      .card-title{
+        color: black;
+      font-size: 14px;
+      font-weight: 600;
+      }
+      .card-title-name{
+        color:black;
+          display: block;
+          font-size: 12px;
+          font-weight: 600;
+          text-align: center;
+          text-transform: capitalize;
+          width: 100%;
+      }
+      .icon-size{
+        margin-bottom: 10px;
+      }
+      
+      
+        
+        
+    }
+    /* Ensure the menu items are displayed in a single row */

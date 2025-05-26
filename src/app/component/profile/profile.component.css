@@ -1,0 +1,241 @@
+/* .edit-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+.close-btn{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+.edit-btn i {
+  font-size: 16px;
+}
+
+.gap-2 > * {
+  flex: 1;
+}
+.container{
+ 
+  width:65%;
+  margin-left: 30%;
+  margin-top: -20%;
+  
+}
+.card{
+  width: 90%;
+  margin-top:-10%;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: none;
+
+}
+.form-control{
+  margin-top: 0px;
+  border-radius: 5px;
+}
+.form-label{
+  margin-bottom: 20px;
+  color:black;
+  font-size: 14px;
+  font-weight: 400;
+  font-family: inherit;
+}
+.form-check-input {
+color: black;
+}
+
+input[readonly],
+textarea[readonly] {
+background-color: transparent !important;  
+pointer-events: none;  
+margin-bottom: 20px;
+}
+.custom-btn{
+  background-color:#23568b ;
+  color: white;
+  width: 150px;
+}
+.edit-mode-margin {
+  margin-bottom: 20px;  
+}
+.form-check {
+  margin-right: 1rem; 
+}
+
+.form-check-input {
+  margin-top: 1rem;
+  margin-right: 0.5rem;  
+}
+
+
+@media (max-width: 768px) {
+  .container{
+      margin-top: 20px;
+    width: 100%;
+   margin-left: 10px;
+    padding-left: 0%;
+    
+  }
+  .edit-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    }
+    .close-btn{
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+    .form-label{
+      margin-top: 10px;
+    }
+    .form-control{
+      margin-bottom: 10px;
+    }
+    .row{
+      margin-top: 0%;
+      margin-bottom: 0%;
+    }
+    .col-md-6{
+      margin-bottom: 0%;
+    }
+    .card{
+      width:100%;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: none;
+    }
+} */
+
+
+
+.container {
+ 
+    width:65%;
+    margin-left: 30%;
+    margin-top: -24%;
+  }
+  
+  .create-ac-content {
+    background-color: #f8f9fa; /* Light background for contrast */
+    padding: 30px; /* Increased padding for better spacing */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  }
+  
+  h2, h6 {
+    font-family: 'sans-serif';
+    color: #001c2b; /* Consistent color for headings */
+  }
+  
+  h2 {
+    font-size: 28px; /* Larger font size for main title */
+    margin-bottom: 20px; /* Space below the title */
+  }
+  
+  h6 {
+    font-size: 24px; /* Slightly larger font for subtitles */
+    margin-bottom: 15px; /* Space below the subtitle */
+  }
+  
+  .form-group {
+    margin-bottom: 20px; /* Space between form groups */
+  }
+  
+  label {
+    font-family: 'sans-serif';
+    font-size: 18px; /* Consistent font size for labels */
+    color: #001c2b; /* Consistent color for labels */
+    margin-bottom: 10px;
+  }
+  
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"] {
+    font-family: 'sans-serif';
+    font-size: 16px; /* Standard font size for inputs */
+    color: #001c2b; /* Input text color */
+    border: 1px solid #ccc; /* Light border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px; /* Padding for inputs */
+    width: 100%; /* Full width for inputs */
+    box-sizing: border-box; /* Include padding in width */
+  }
+  
+  input[type="text"]:focus,
+  input[type="email"]:focus,
+  input[type="tel"]:focus {
+    border-color: #007bff; /* Change border color on focus */
+    outline: none; /* Remove default outline */
+  }
+  
+  .required-f {
+    color: red; /* Color for required field indicator */
+  }
+  
+  button {
+    font-family: 'sans-serif';
+    font-size: 18px; /* Font size for buttons */
+    color: #001c2b; /* Button text color */
+    background-color: lightgrey; /* Button background color */
+    border: none; /* Remove default border */
+    border-radius: 5px; /* Rounded corners for buttons */
+    padding: 10px 20px; /* Padding for buttons */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Smooth background color transition */
+  }
+  
+  button:hover {
+    background-color: #e0e0e0; /* Darker background on hover */
+  }
+  
+  @media (max-width: 768px) {
+    .container {
+      width: 95%; /* Full width on smaller screens */
+      padding: 0 10px; /* Padding adjustments */
+       
+          margin-top: 0px;
+          margin-left: 0px;
+          width: 100%;
+        
+    }
+  
+    h2 {
+      font-size: 24px; /* Smaller font size for headings on mobile */
+    }
+  
+    h6 {
+      font-size: 20px; /* Smaller font size for subtitles on mobile */
+    }
+  
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"] {
+      font-size: 14px; /* Smaller font size for inputs on mobile */
+    }
+  
+    button {
+      font-size: 16px; /* Smaller font size for buttons on mobile */
+    }
+  }
+
+ 
+  
+  
