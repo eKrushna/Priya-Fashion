@@ -174,11 +174,9 @@ export class ReturnpageComponent implements OnInit {
 
     console.log('Sending data:', requestData);
 
+
+    console.log('Selected Action:', this.selectedAction);
     // For reliable data transfer, use both state and queryParams
-    if (!this.isFormValid() || !this.isActionValid()) {
-      console.error('Form is invalid or action is not selected');
-      return;
-    }
 
     if (this.selectedAction === 'return') {
       this.router.navigate(['/returnrequest'], {
@@ -186,7 +184,6 @@ export class ReturnpageComponent implements OnInit {
         queryParams: requestData
       });
     } else if (this.selectedAction === 'replace') {
-
       this.router.navigate(['/replacerequest'], {
         state: { data: requestData },
         queryParams: requestData

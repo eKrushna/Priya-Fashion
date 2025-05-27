@@ -73,6 +73,10 @@ export class ReplacerequestComponent implements OnInit {
     console.log('Data received:', data);
   }
 
+  goToHome() {
+    this.router.navigate(['/']);
+  }
+
   onReasonChange(): void {
     // Clear size selection if reason is not 'size'
     if (this.selectedReason !== 'size') {

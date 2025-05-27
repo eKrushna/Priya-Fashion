@@ -23,7 +23,7 @@ interface RazorpayResponse {
   styleUrl: './delivery-address.component.css'
 })
 export class DeliveryAddressComponent {
- 
+
 
 
 
@@ -67,17 +67,17 @@ export class DeliveryAddressComponent {
 //     this.loginService.saveUserAddress(this.addressForm.value).subscribe({
 //       next: (response) => {
 //         console.log('Address saved successfully:', response);
-         
+
 //         localStorage.setItem('userAddress', JSON.stringify(this.addressForm.value));
 //       },
 //       error: (err) => {
 //         console.error('Error saving address:', err);
-        
+
 //       }
 //     });
 //   }
 // }
- 
+
 
    isFormDirty: boolean = false;
    isAddressFieldsEnabled = false;
@@ -90,7 +90,7 @@ export class DeliveryAddressComponent {
      if (this.Address_1 && this.Address_1.length === 6) {
       this.fetchAddressFromPincode();
     }
-     
+
    }
    @ViewChild('content', { static: false }) content!: ElementRef;
    showTable = false;
@@ -98,7 +98,7 @@ export class DeliveryAddressComponent {
    user: Customer | null = null;
    defaultUrl: any =
      'https://ppriyafashion.com/business_guru_admin/Product_Image/';
- 
+
    responseData: any[] = [];
    myForm: FormGroup;
    User_Id: any = '';
@@ -122,13 +122,13 @@ export class DeliveryAddressComponent {
    DeliveryDispatchDate: any = '';
    AboutToReachTime: any = '';
    OtherInformation: any = '';
- 
+
    productData: any[] = [
      { name: 'Blue Cotton Suit', price: 2000, qty: 10, size: 'M' },
    ];
    sizeChartModal: boolean = false;
    menuItems: any;
- 
+
    constructor(
      private loginService: LoginService,
      private http: HttpClient,
@@ -148,22 +148,22 @@ export class DeliveryAddressComponent {
        this.menuItems = response;
        console.log('menuitems', this.menuItems);
      });
- 
+
      // Filter the delieverdData to include only delivered products
      this.delieverdData = this.delieverdData.filter((order) =>
        order.S_DTL.some((product: Product) => product.Status1 === 'Delivered')
      );
- 
+
      this.fetchData();
      this.deleteOrder(this.orderData);
- 
+
      this.loginService.response$.subscribe((data) => {
        this.responseData = data;
        this.User_Name = this.responseData[0].User_Name;
        // Do something with the response
        console.log('this data from my acc', this.responseData);
      });
- 
+
      const customerDataStr = sessionStorage.getItem('customerData');
      console.log('this is cd', customerDataStr);
      if (customerDataStr) {
@@ -185,52 +185,52 @@ export class DeliveryAddressComponent {
      this.cartItems = this.SharedService.cartItems;
      this.quantity = this.SharedService.getQuantity(this.quantity);
      console.log('cart:--', this.cartItems);
- 
+
      this.fetchOrederData();
      this.extractProductNames();
    }
 
-   
- 
+
+
    TrackDisplay: boolean = false;
- 
+
    TrackPopup(order: any) {
      // Push order data to showPopupdata array
      this.showPopupdata.push(order);
      console.log(this.showPopupdata);
- 
+
      // Set TrackDisplay to true
      this.TrackDisplay = true;
- 
+
      const Order = this.showPopupdata[this.showPopupdata.length - 1];
      this.DeliveryVendor = Order?.Delivery_Vendor;
      this.deliveryDocumentsNo = Order?.Delivery_Documents_No;
      this.DeliveryDispatchDate = Order?.Delivery_Dispatch_Date;
      this.AboutToReachTime = Order?.About_To_Reach_Time;
      this.OtherInformation = Order?.Other_Information;
- 
+
      // alert(`          Delivery Details
- 
+
      //         Delivery Vendor : ${DeliveryVendor}
      //         Delivery Documents No: ${deliveryDocumentsNo}
      //         Delivery Dispatch Date:${Delivery_Dispatch_Date}
      //         About To Reach Time :${AboutToReachTime}
      //         Other Information:${OtherInformation}`);
- 
+
      // Optionally, you can set showOrdersForm to false if needed
      this.showOrdersForm = true;
      this.sizeChartModal = true;
    }
- 
+
    showMore = false;
- 
+
    formatProductName(productName: string): string {
      // Use a regular expression to add spaces between words
      return productName.replace(/([a-z])([A-Z])/g, '$1 $2');
    }
- 
-     
- 
+
+
+
    deleteOrder(order: any): void {
      const deleteData = [
        {
@@ -241,10 +241,10 @@ export class DeliveryAddressComponent {
          // Add other properties needed for the delete operation
        },
      ];
- 
+
      const requestUrl =
        'https://ppriyafashion.com/business_guru_admin/S_MTR_Operations.php';
- 
+
      this.http.post(requestUrl, deleteData).subscribe(
        (response) => {
          // Handle the success response
@@ -258,40 +258,40 @@ export class DeliveryAddressComponent {
        //   alert(error);
        // }
      );
- 
+
      // Remove the S_DTL array from the order object
      order.S_DTL = [];
    }
- 
+
    showDeleiverdForm: boolean = false;
- 
+
    showProfileForm: boolean = true;
    showOrdersForm: boolean = true;
- 
+
    showProfile(): void {
      this.showProfileForm = true;
      this.showOrdersForm = false;
      this.showDeleiverdForm = false;
    }
- 
+
    showOrders(): void {
      this.showProfileForm = false;
      this.showOrdersForm = true;
      this.showDeleiverdForm = false;
    }
- 
+
    showDeleiverdProduct(): void {
      this.showOrdersForm = false;
      this.showProfileForm = false;
      this.showDeleiverdForm = true;
    }
- 
+
    fetchedDataH: any;
    fetchData() {
      const customerDataStr = sessionStorage.getItem('customerData');
      if (customerDataStr) {
        const customerData = JSON.parse(customerDataStr);
- 
+
        this.User_Id = customerData[0].User_Id;
      }
      // Prepare the data to be sent in the POST request
@@ -302,7 +302,7 @@ export class DeliveryAddressComponent {
        },
      ];
      console.log('fetched UID', postData);
- 
+
      // Make the HTTP POST request
      const requestUrl =
        'https://ppriyafashion.com/business_guru_admin/WISH_LIST.php';
@@ -319,10 +319,10 @@ export class DeliveryAddressComponent {
        }
      );
    }
- 
+
    viewData() {
      const customerDataStr = sessionStorage.getItem('customerData');
- 
+
      if (customerDataStr) {
        const customerData = JSON.parse(customerDataStr);
        console.log(customerData[0].User_Id);
@@ -342,7 +342,7 @@ export class DeliveryAddressComponent {
        this.Status1 = customerData[0].Status1;
      }
    }
- 
+
    onSave() {
      if (this.areAllFieldsFilled()) {
        const updatedData = [
@@ -371,7 +371,7 @@ export class DeliveryAddressComponent {
          (response) => {
            console.log('updatedData');
            sessionStorage.setItem('customerData', JSON.stringify(updatedData));
- 
+
            // Handle the success response
            // console.log('Data updated successfully', response);
            alert(response);
@@ -390,46 +390,46 @@ export class DeliveryAddressComponent {
 
    onDistrictChange(district: string) {
     this.Address_2 = district;
-  
+
     if (!district || district.length < 3) {
       this.clearAddressFields();
       return;
     }
-  
+
     // Debounce API call to prevent unnecessary requests
     if (this.debounceTimer) {
       clearTimeout(this.debounceTimer);
     }
-  
+
     this.debounceTimer = setTimeout(() => {
       this.fetchCityAndStateFromDistrict();
     }, 500);
   }
-  
+
   fetchCityAndStateFromDistrict() {
     const district = this.Address_2?.trim().toLowerCase();
-  
+
     if (!district || district.length < 3) {
       this.clearAddressFields();
       return;
     }
-  
+
     this.http.get<any[]>(`https://api.postalpincode.in/postoffice/${district}`).subscribe({
       next: (data) => {
         const postOffices = data[0]?.PostOffice;
         const status = data[0]?.Status;
-  
+
         if (status === 'Success' && postOffices && postOffices.length > 0) {
           const filteredPOs = postOffices.filter((po: any) =>
             po.District.toLowerCase() === district
           );
-  
+
           const nonMatchingCities = filteredPOs.filter((po: any) =>
             po.Name.toLowerCase() !== district
           );
-  
+
           const mainPO = nonMatchingCities[0] || filteredPOs[0] || postOffices[0];
-  
+
           if (mainPO) {
             this.Address_4 = mainPO.Name; // City
             this.Address_5 = mainPO.State; // State
@@ -451,20 +451,20 @@ export class DeliveryAddressComponent {
       }
     });
   }
-  
+
   clearAddressFields() {
     this.Address_4 = '';
     this.Address_5 = '';
     this.isAddressFieldsEnabled = false;
   }
-  
+
   showSingleAlert(message: string) {
     if (!this.hasShownInvalidDistrictAlert) {
       alert(message); // Or replace with toastr.warning if using ngx-toastr
       this.hasShownInvalidDistrictAlert = true;
     }
   }
-  
+
 
 fetchAddressFromPincode() {
   if (!this.Address_1 || this.Address_1.length !== 6) {
@@ -500,25 +500,25 @@ onPincodeChange(value: string): void {
   this.onFieldChange(); // If you still want to track field changes
 }
 
-  
 
- 
+
+
    selectedItem: string | null = null;
- 
+
    toggleUnderline(item: string) {
      this.selectedItem = this.selectedItem === item ? null : item;
    }
- 
+
    showdata() {
      const customerDataStr = sessionStorage.getItem('customerData');
- 
+
      if (customerDataStr) {
        const customerData = JSON.parse(customerDataStr);
        this.User_Name = customerData[0].User_Name;
        this.User_Id = customerData[0].User_Id;
        this.Status1 = customerData[0].Status1;
      }
- 
+
      const payload = [
        {
          Operation: 'Display_Operation',
@@ -528,20 +528,20 @@ onPincodeChange(value: string): void {
          firmCodeKey: '3939',
        },
      ];
- 
+
      console.log('payload', payload);
- 
+
      this.SharedService.showorderStatus(payload).subscribe(
        (res) => {
          this.selectedItem = 'orders';
- 
+
          this.delieverdData = res.filter((order: { S_DTL: Product[] }) =>
            order.S_DTL.some(
              (product: Product) => product.Status1 === 'Delivered'
            )
          );
          console.log('this is delieverdData', this.delieverdData);
- 
+
          console.log('Deliver ', this.delieverdData);
        },
        (error) => {
@@ -549,24 +549,24 @@ onPincodeChange(value: string): void {
        }
      );
    }
- 
+
    viewProduct(index: any): void {
      // this.showProductShowcase = false;
- 
+
      this.router.navigate(['/products', index]);
      // [routerLink]="['/product', product.Product_Code_Id]"
    }
- 
+
    orderData: any[] = [];
    orderData2: any[] = [];
    fetchOrederData() {
      const customerDataStr = sessionStorage.getItem('customerData');
- 
+
      if (customerDataStr) {
        const customerData = JSON.parse(customerDataStr);
        this.User_Name = customerData[0].User_Name;
      }
- 
+
      const reqData = [
        {
          Operation: 'Display_Operation',
@@ -575,9 +575,9 @@ onPincodeChange(value: string): void {
          firmCodeKey: '3939',
        },
      ];
- 
+
      console.log('reqOrederData', reqData);
- 
+
      //  const headers=new HttpHeaders().set("contentType","application/json");
      //  const url="https://savrajaipur.com/business_guru_admin/S_MTR_Operations.php"
      this.SharedService.getOrder(reqData).subscribe(
@@ -591,9 +591,9 @@ onPincodeChange(value: string): void {
        }
      );
    }
- 
+
    productNames: string[] = [];
- 
+
    private extractProductNames(): void {
      console.log('this.is checking orderdata', this.orderData);
      for (const order of this.orderData) {
@@ -603,7 +603,7 @@ onPincodeChange(value: string): void {
        }
      }
    }
- 
+
    // Inside your component class
    areAllFieldsFilled(): boolean {
      // Check if all required fields have values
@@ -619,5 +619,5 @@ onPincodeChange(value: string): void {
        this.Address_5
      );
    }
- 
+
 }
