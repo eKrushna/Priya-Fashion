@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { CommonModule } from '@angular/common'; // <-- Add this import
+import { Router, ActivatedRoute } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { MyAccountComponent } from '../my-account/my-account.component';
 
 @Component({
   selector: 'app-returnrequest',
-  standalone: true, // <-- If using standalone components
-  imports: [CommonModule], // <-- Add CommonModule here
+  standalone: true,
+  imports: [CommonModule, MyAccountComponent],
   templateUrl: './returnrequest.component.html',
-  styleUrls: ['./returnrequest.component.css']
+  styleUrls: ['./returnrequest.component.css'],
 })
 export class ReturnrequestComponent implements OnInit {
   productId: string | null = null;
@@ -19,27 +20,56 @@ export class ReturnrequestComponent implements OnInit {
   itemPrice: number = 0;
   gst: number = 0;
   totalRefund: number = 0;
+  price: number = 0;
 
   today: Date = new Date();
   dropOffDate: Date = new Date();
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.productId = this.route.snapshot.queryParamMap.get('productId');
-    this.orderId = this.route.snapshot.queryParamMap.get('orderId');
-    this.quantity = Number(this.route.snapshot.queryParamMap.get('quantity'));
-    this.productImage = this.route.snapshot.queryParamMap.get('image');
+    // Try to get data from router state first
+    const navigation = this.router.getCurrentNavigation();
+    const stateData = navigation?.extras?.state?.['data'];
 
-    // Example: fetch these values from API or service
-    this.itemPrice = 2521 * (this.quantity || 1);
-    this.gst = 630 * (this.quantity || 1);
+    if (stateData) {
+      this.setData(stateData);
+    } else {
+      console.warn('No state data found, trying URL query parameters instead');
+      // Fallback to URL query parameters
+      this.route.queryParams.subscribe((params) => {
+        if (Object.keys(params).length > 0) {
+          this.productId = params['productId'];
+          this.orderId = params['orderId'];
+          this.quantity = Number(params['quantity']) || 1;
+          this.productImage = params['image'];
+          this.itemPrice = Number(params['itemPrice']) || 0;
+          this.gst = Number(params['gst']) || 0;
 
-    // GST should be subtracted from the refund
-    this.totalRefund = this.itemPrice - this.gst;
+          // Calculate total refund
+          this.totalRefund = this.itemPrice * this.quantity - this.gst;
+        } else {
+          console.error('No data available in either state or query parameters');
+        }
+      });
+    }
 
-    // Example: drop off date is 5 days from today
-    this.dropOffDate = new Date();
+    // Set drop-off date to 5 days from now
     this.dropOffDate.setDate(this.today.getDate() + 5);
+  }
+
+  private setData(data: any): void {
+    this.productId = data.productId;
+    this.orderId = data.orderId;
+    this.quantity = data.quantity;
+    this.productImage = data.image;
+    this.itemPrice = data.itemPrice ?? 0;
+    this.gst = data.gst ?? 0;
+    this.price = data.price ?? 0;
+
+    // Calculate total refund
+    this.totalRefund = this.itemPrice * (this.quantity || 1) - this.gst;
+
+    console.log('Data received:', data);
   }
 }

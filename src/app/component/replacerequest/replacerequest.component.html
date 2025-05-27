@@ -1,1 +1,174 @@
-<p>replacerequest works!</p>
+<div class="container py-5 mt-4" style="background:#fff6ea; min-height:100vh;">
+  <div class="row">
+    <!-- Left menu (My Account) - adjusted to be more left -->
+    <div class="col-lg-2 col-md-3 mb-4 mb-lg-0">
+      <app-my-account></app-my-account>
+    </div>
+
+    <!-- Gap between left menu and content -->
+    <div class="col-lg-1 col-md-1 d-none d-md-block"></div>
+
+    <!-- Main content - adjusted width -->
+    <div class="col-lg-9 col-md-8">
+      <div class="row">
+        <!-- Timeline and product -->
+        <div class="col-lg-7 col-md-12 mb-4 mb-lg-0">
+          <div class="d-flex align-items-center mb-4 flex-column flex-sm-row">
+            <img
+              [src]="productImage ? 'https://ppriyafashion.com/business_guru_admin/Product_Image/' + productImage : 'https://via.placeholder.com/80'"
+              alt="Product"
+              style="width:80px; height:80px; object-fit:cover; border-radius:6px; margin-bottom:16px; margin-right:24px;">
+            <div>
+              <div style="font-weight:600;">Product ID: {{ productId }}</div>
+              <div style="color:#555;">Order ID: <span style="font-weight:700;">{{ orderId }}</span></div>
+              <div style="color:#555;">Quantity: <span style="font-weight:700;">{{ quantity }}</span></div>
+            </div>
+          </div>
+
+          <!-- Replacement reason section -->
+          <div class="card mb-4">
+            <div class="card-body">
+              <h5 class="mb-3" style="font-weight:600;">Replacement Reason</h5>
+              <div class="form-group mb-3">
+                <select class="form-select" [(ngModel)]="selectedReason" (change)="onReasonChange()">
+                  <option value="">Select a reason</option>
+                  <option value="size">Size doesn't fit</option>
+                  <option value="damaged">Product arrived damaged</option>
+                  <option value="defective">Product is defective</option>
+                  <option value="notAsDescribed">Product not as described</option>
+                  <option value="other">Other reason</option>
+                </select>
+              </div>
+
+              <!-- Show when "Other" is selected -->
+              <div class="form-group mb-3" *ngIf="selectedReason === 'other'">
+                <input type="text" class="form-control" placeholder="Please specify your reason"
+                  [(ngModel)]="otherReasonText">
+              </div>
+
+              <!-- Size selection for size-related issues -->
+              <div class="form-group" *ngIf="selectedReason === 'size'">
+                <label class="form-label">Select your preferred size:</label>
+                <div class="size-buttons mt-2">
+                  <button *ngFor="let size of availableSizes" class="size-btn"
+                    [ngClass]="{'selected': selectedSize === size}" (click)="selectedSize = size">
+                    {{ size }}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Timeline -->
+          <div class="timeline">
+            <div class="timeline-step active">
+              <div class="timeline-dot"></div>
+              <div>
+                <div class="timeline-date">{{ today | date:'MMM d' }}</div>
+                <div class="timeline-title">Replacement requested</div>
+                <div class="timeline-desc">
+                  <a href="#" style="color:#007185;">Get replacement instructions</a>
+                </div>
+              </div>
+            </div>
+            <div class="timeline-step">
+              <div class="timeline-dot"></div>
+              <div>
+                <div class="timeline-title">
+                  Drop off the item by <span style="font-weight:600;">{{ dropOffDate | date:'EEE, MMM d' }}</span>
+                </div>
+              </div>
+            </div>
+            <div class="timeline-step">
+              <div class="timeline-dot"></div>
+              <div>
+                <div class="timeline-title">Replacement processed after we receive the item</div>
+              </div>
+            </div>
+            <div class="timeline-step">
+              <div class="timeline-dot"></div>
+              <div>
+                <div class="timeline-title">New product dispatched</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Replacement summary and manage replacement -->
+        <div class="col-lg-5 col-md-12">
+          <div class="card mb-3">
+            <div class="card-body">
+              <h5 class="mb-3" style="font-weight:600;">Replacement Summary</h5>
+              <div class="d-flex justify-content-between">
+                <span>Original Product</span>
+                <span>₹{{ itemPrice | number:'1.2-2' }}</span>
+              </div>
+              <div class="d-flex justify-content-between">
+                <span>Quantity</span>
+                <span>{{ quantity }}</span>
+              </div>
+              <div class="d-flex justify-content-between" *ngIf="selectedReason === 'size'">
+                <span>Selected Size</span>
+                <span>{{ selectedSize || 'Not selected' }}</span>
+              </div>
+              <hr>
+              <div class="d-flex justify-content-between" style="font-weight:700;">
+                <span>Status</span>
+                <span class="text-success">Eligible for replacement</span>
+              </div>
+              <div class="mt-2" style="font-size:0.95rem; color:#555;">
+                Your replacement will be processed once we receive the original item
+              </div>
+            </div>
+          </div>
+
+          <!-- Manage Replacement Card -->
+          <div class="card mb-3">
+            <div class="card-body">
+              <h5 class="mb-3" style="font-weight:600;">Manage your replacement</h5>
+              <button class="btn btn-link p-0 d-block mb-2" style="color:#007185;">Cancel this replacement</button>
+              <button class="btn btn-link p-0 d-block mb-2" style="color:#007185;">View order details</button>
+              <button class="btn btn-link p-0 d-block" style="color:#007185;">Contact support</button>
+            </div>
+          </div>
+          <button class="btn btn-primary w-100" [disabled]="!isFormValid()" (click)="confirmReplacement()">
+            Confirm Replacement
+          </button>
+          <button class="btn btn-outline-dark w-100 mt-2">Continue shopping</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .size-btn {
+    padding: 8px 14px;
+    background-color: white;
+    border: 2px solid #ccc;
+    cursor: pointer;
+    border-radius: 50%;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #666;
+    transition: all 0.3s ease;
+    margin-right: 8px;
+    margin-bottom: 8px;
+  }
+
+  .size-btn.selected {
+    border: 2px solid black;
+    color: black;
+  }
+
+  .size-buttons {
+    display: flex;
+    flex-wrap: wrap;
+  }
+</style>

@@ -17,6 +17,7 @@ import { SearchComponent } from './component/search/search.component';
 import { ReturnpageComponent } from './component/returnpage/returnpage.component';
 import { ReturnrequestComponent } from './component/returnrequest/returnrequest.component';
 
+
 export const routes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'products/:category', component: CollectionsComponent }, // Full-page cart here

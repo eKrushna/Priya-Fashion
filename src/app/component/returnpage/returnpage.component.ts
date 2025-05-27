@@ -7,11 +7,12 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { trigger, state, style, animate, transition } from '@angular/animations';
+import { MyAccountComponent } from "../my-account/my-account.component";
 
 
 @Component({
   selector: 'app-returnpage',
-  imports: [CommonModule,FormsModule],
+  imports: [CommonModule, FormsModule, MyAccountComponent],
   templateUrl: './returnpage.component.html',
   styleUrls: ['./returnpage.component.css'],
   animations: [
@@ -82,17 +83,17 @@ export class ReturnpageComponent implements OnInit {
 
   fetchReturnResons() {
     this.http.get<{ returnReasons: any[] }>('../../../assets/JSON/ReturnResons.json')
-    .subscribe(
-      (response) => {
-        this.reasons = response.returnReasons;
-        console.log(this.reasons);
-      },
-      (error) => {
-        console.error('Error fetching return reasons:', error);
-      }
-    );
+      .subscribe(
+        (response) => {
+          this.reasons = response.returnReasons;
+          console.log(this.reasons);
+        },
+        (error) => {
+          console.error('Error fetching return reasons:', error);
+        }
+      );
 
-  console.log("Fetching return reasons from local JSON...");
+    console.log("Fetching return reasons from local JSON...");
 
   }
 
@@ -155,22 +156,40 @@ export class ReturnpageComponent implements OnInit {
     this.isFolded = false;
   }
   onProceed() {
+    console.log('Selected Product:', this.selectedProduct);
+
+    if (!this.selectedProduct) {
+      console.error('No product selected');
+      return;
+    }
+
+    const requestData = {
+      productId: this.selectedProduct.Product_Code_Id,
+      orderId: this.selectedOrder?.S_MTR_Id,
+      quantity: this.selectedQuantity,
+      image: this.selectedProduct.Images?.[0]?.P_URL,
+      itemPrice: this.selectedProduct.P_Rate,
+      gst: this.selectedProduct.GST || 0,
+    };
+
+    console.log('Sending data:', requestData);
+
+    // For reliable data transfer, use both state and queryParams
+    if (!this.isFormValid() || !this.isActionValid()) {
+      console.error('Form is invalid or action is not selected');
+      return;
+    }
+
     if (this.selectedAction === 'return') {
       this.router.navigate(['/returnrequest'], {
-        queryParams: {
-          productId: this.selectedProduct?.Product_Code_Id,
-          orderId: this.selectedOrder?.S_MTR_Id,
-          quantity: this.selectedQuantity,
-          image: this.selectedProduct?.Images?.[0]?.P_URL // Pass image file name
-        }
+        state: { data: requestData },
+        queryParams: requestData
       });
     } else if (this.selectedAction === 'replace') {
+
       this.router.navigate(['/replacerequest'], {
-        queryParams: {
-          productId: this.selectedProduct?.Product_Code_Id,
-          orderId: this.selectedOrder?.S_MTR_Id,
-          quantity: this.selectedQuantity
-        }
+        state: { data: requestData },
+        queryParams: requestData
       });
     }
   }

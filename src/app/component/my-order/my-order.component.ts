@@ -128,25 +128,25 @@ export class MyOrderComponent  implements OnInit{
       });
   }
 
-    // TrackPopup(order: any) {
-    //   // Push order data to showPopupdata array
-    //   console.log("hello");
-    //   this.showPopupdata.push(order);
-    //   console.log("track order",this.showPopupdata);
+    TrackPopup(order: any) {
+      // Push order data to showPopupdata array
+      console.log("hello");
+      this.showPopupdata.push(order);
+      console.log("track order",this.showPopupdata);
 
-    //   // Set TrackDisplay to true
-    //   this.TrackDisplay = true;
+      // Set TrackDisplay to true
+      this.TrackDisplay = true;
 
 
-    //   this.DeliveryVendor = order?.Delivery_Vendor || 'N/A';
-    //   this.deliveryDocumentsNo = order?.Delivery_Documents_No || 'N/A';
-    //   this.DeliveryDispatchDate = order?.Delivery_Dispatch_Date || 'N/A';
-    //   this.AboutToReachTime = order?.About_To_Reach_Time || 'N/A';
-    //   this.OtherInformation = order?.Other_Information || 'N/A';
+      this.DeliveryVendor = order?.Delivery_Vendor || 'N/A';
+      this.deliveryDocumentsNo = order?.Delivery_Documents_No || 'N/A';
+      this.DeliveryDispatchDate = order?.Delivery_Dispatch_Date || 'N/A';
+      this.AboutToReachTime = order?.About_To_Reach_Time || 'N/A';
+      this.OtherInformation = order?.Other_Information || 'N/A';
 
-    //   this.showOrdersForm = true;
-    //   this.sizeChartModal = true;
-    // }
+      this.showOrdersForm = true;
+      this.sizeChartModal = true;
+    }
 
     showMore = false;
 
@@ -383,7 +383,7 @@ export class MyOrderComponent  implements OnInit{
           if (res) {
             this.orderData = res;
             this.orderData2 = res;
-            console.log('this is orderData',res);
+            console.log('ok', this.orderData);
             this.extractProductNames();
           } else {
             console.warn('Empty response received');
@@ -427,5 +427,14 @@ export class MyOrderComponent  implements OnInit{
         this.Address_4 &&
         this.Address_5
       );
+    }
+
+    isAfterSevenDays(dateString: string): boolean {
+      if (!dateString) return false;
+      const deliveryDate = new Date(dateString);
+      const now = new Date();
+      const diffTime = now.getTime() - deliveryDate.getTime();
+      const diffDays = diffTime / (1000 * 3600 * 24);
+      return diffDays > 7;
     }
 }
